@@ -46,9 +46,12 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("Left", "Right")
 	if direction:
+		# moving
 		velocity.x = move_toward(velocity.x, direction * SPEED, ACCEL * delta)
+		$GPUParticles2D.emitting = true
 	else:
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+		$GPUParticles2D.emitting = false
 
 	move_and_slide()
 
