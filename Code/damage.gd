@@ -4,7 +4,7 @@ var player_in_spike := false
 var cbody 
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if player_in_spike:
 		if cbody.is_in_group("Player"):
 			if $"../../../Player".No_damage_time_active == false:
