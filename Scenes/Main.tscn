@@ -137,6 +137,9 @@ size = Vector2(1528, 158)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1gob"]
 size = Vector2(16.31321, 4)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jw32o"]
+radius = 8.0
+
 [node name="Main" type="Node2D" unique_id=759836253]
 
 [node name="Sea" type="TileMapLayer" parent="." unique_id=1298637750]
@@ -148,6 +151,14 @@ z_index = 10
 position = Vector2(-54, 86)
 collision_layer = 5
 collision_mask = 5
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=2131898979]
+zoom = Vector2(6, 6)
+limit_left = -80
+limit_top = -200
+limit_bottom = 112
+limit_smoothed = true
+position_smoothing_enabled = true
 
 [node name="Instakill" parent="." unique_id=781367514 instance=ExtResource("3_kln2b")]
 
@@ -255,8 +266,26 @@ texture_progress = ExtResource("6_v1gob")
 tint_progress = Color(0.6396803, 0.90851444, 0.7115593, 1)
 
 [node name="Squid" parent="." unique_id=436895269 node_paths=PackedStringArray("player") instance=ExtResource("7_jw32o")]
+z_index = 1
 position = Vector2(458, 46)
 player = NodePath("../Player")
+
+[node name="Damage" parent="Squid" unique_id=1022707938 instance=ExtResource("5_pbw6q")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Squid/Damage" unique_id=107127548]
+shape = SubResource("CircleShape2D_jw32o")
+debug_color = Color(1, 0, 0, 0.05490196)
+
+[node name="Squid2" parent="." unique_id=2105579350 node_paths=PackedStringArray("player") instance=ExtResource("7_jw32o")]
+z_index = 11
+position = Vector2(-1, 62)
+player = NodePath("../Player")
+
+[node name="Damage" parent="Squid2" unique_id=405175291 instance=ExtResource("5_pbw6q")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Squid2/Damage" unique_id=500022773]
+shape = SubResource("CircleShape2D_jw32o")
+debug_color = Color(1, 0, 0, 0.05490196)
 
 [connection signal="body_entered" from="Air" to="Player" method="_on_air_body_entered"]
 [connection signal="body_exited" from="Air" to="Player" method="_on_air_body_exited"]
