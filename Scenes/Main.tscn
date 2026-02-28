@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dq80h78q5t2n6" path="res://Scenes/Instakill.tscn" id="3_kln2b"]
 [ext_resource type="PackedScene" uid="uid://dpq1d12mj6kr" path="res://Scenes/spike.tscn" id="4_rgh2o"]
 [ext_resource type="PackedScene" uid="uid://cknosgd186yyl" path="res://Scenes/damage.tscn" id="5_pbw6q"]
+[ext_resource type="Texture2D" uid="uid://bhvvnngdsu4t0" path="res://Acets/health.png" id="6_v1gob"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_idj7w"]
 texture = ExtResource("1_r150o")
@@ -289,7 +290,7 @@ size = Vector2(18, 7)
 [node name="Main" type="Node2D" unique_id=759836253]
 
 [node name="Sea" type="TileMapLayer" parent="." unique_id=1298637750]
-tile_map_data = PackedByteArray("AAD8/wYAAAAGAAEAAAD9/wYAAAAGAAEAAAD+/wYAAAAGAAEAAAD//wYAAAAGAAEAAAAAAAYAAAAGAAEAAAABAAYAAAAGAAEAAAD7/wUAAAAGAAEAAAD7/wQAAAAGAAEAAAD7/wMAAAAGAAEAAAD7/wIAAAAGAAEAAAD7/wEAAAAGAAEAAAD7/wAAAAAGAAEAAAD7////AAAGAAEAAAD7//7/AAAGAAEAAAD7//3/AAAGAAEAAAD7//z/AAAGAAEAAAD7/wYAAAAGAAEAAAD7//j/AAAGAAEAAAD7//n/AAAGAAEAAAD7//r/AAAGAAEAAAD7//v/AAAGAAEAAAD7//f/AAAGAAEAAAD7//b/AAAGAAEAAAD7//X/AAAGAAEAAAD7//T/AAAGAAEAAAD7//P/AAAGAAEAAAAFAAUAAAAGAAEAAAAGAAUAAAAGAAEAAAAHAAUAAAAGAAEAAAAIAAUAAAAGAAEAAAAMAAYAAAAGAAEAAAANAAYAAAAGAAEAAAAOAAYAAAAGAAEAAAAPAAYAAAAGAAEAAAA=")
+tile_map_data = PackedByteArray("AAD8/wYAAAAGAAEAAAD9/wYAAAAGAAEAAAD+/wYAAAAGAAEAAAD//wYAAAAGAAEAAAAAAAYAAAAGAAEAAAABAAYAAAAGAAEAAAD7/wUAAAAGAAEAAAD7/wQAAAAGAAEAAAD7/wMAAAAGAAEAAAD7/wIAAAAGAAEAAAD7/wEAAAAGAAEAAAD7/wAAAAAGAAEAAAD7////AAAGAAEAAAD7//7/AAAGAAEAAAD7//3/AAAGAAEAAAD7//z/AAAGAAEAAAD7/wYAAAAGAAEAAAD7//j/AAAGAAEAAAD7//n/AAAGAAEAAAD7//r/AAAGAAEAAAD7//v/AAAGAAEAAAD7//f/AAAGAAEAAAD7//b/AAAGAAEAAAD7//X/AAAGAAEAAAD7//T/AAAGAAEAAAD7//P/AAAGAAEAAAAFAAUAAAAGAAEAAAAGAAUAAAAGAAEAAAAHAAUAAAAGAAEAAAAIAAUAAAAGAAEAAAAMAAYAAAAGAAEAAAANAAYAAAAGAAEAAAAOAAYAAAAGAAEAAAAPAAYAAAAGAAEAAAAWAAYAAAAGAAEAAAAXAAYAAAAGAAEAAAAeAAYAAAAGAAEAAAAeAAUAAAAGAAEAAAAgAAUAAAAGAAEAAAAfAAUAAAAGAAEAAAA=")
 tile_set = SubResource("TileSet_kln2b")
 
 [node name="BackGround" type="TileMapLayer" parent="." unique_id=656658651]
@@ -299,7 +300,6 @@ tile_set = SubResource("TileSet_rgh2o")
 
 [node name="Player" parent="." unique_id=430231768 instance=ExtResource("2_idj7w")]
 position = Vector2(-54, 86)
-Health = 4
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2131898979]
 zoom = Vector2(4, 4)
@@ -363,6 +363,20 @@ position = Vector2(-1, 96)
 position = Vector2(0, -3.5)
 shape = SubResource("RectangleShape2D_v1gob")
 debug_color = Color(0.8980392, 0, 0, 0.41960785)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1391581159]
+
+[node name="Health" type="TextureProgressBar" parent="CanvasLayer" unique_id=920987782]
+z_index = 1000
+offset_left = 10.999999
+offset_top = 5.9999995
+offset_right = 1973.0
+offset_bottom = 246.0
+scale = Vector2(0.12, 0.12)
+max_value = 4.0
+value = 4.0
+texture_progress = ExtResource("6_v1gob")
+tint_progress = Color(0.6396803, 0.90851444, 0.7115593, 1)
 
 [connection signal="body_entered" from="Air" to="Player" method="_on_air_body_entered"]
 [connection signal="body_exited" from="Air" to="Player" method="_on_air_body_exited"]

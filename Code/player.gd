@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var Health = 0
+@export var Health = 4
 @onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
 var No_damage_time_active: bool = false
@@ -13,6 +13,10 @@ var water := true
 
 const SPEED := 200.0
 const JUMP_VELOCITY := -260.0
+
+
+func _process(delta: float) -> void:
+	$"../CanvasLayer/Health".value = Health
 
 
 func _physics_process(delta: float) -> void:
