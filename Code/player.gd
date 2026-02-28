@@ -3,11 +3,14 @@ extends CharacterBody2D
 @export var Health := 4
 @onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
+@export var explode_scene: PackedScene
+
 var No_damage_time_active: bool = false
 var Coyote_time_active: bool = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var gravity_modifier: float = 1
 var water := true
+var was_on_floor := false
 
 const SPEED := 120.0
 const ACCEL := 1500.0
@@ -57,8 +60,19 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 		$GPUParticles2D.emitting = false
+		
 
 	move_and_slide()
+	
+	if is_on_floor() and !was_on_floor:
+		_on_landed()
+	
+	was_on_floor = is_on_floor()
+
+func _on_landed() -> void:
+	var explosion = explode_scene.instantiate()
+	explosion.global_position = global_position
+	get_parent().add_child(explosion)
 
 func take_damage() -> void:
 	if No_damage_time_active:
