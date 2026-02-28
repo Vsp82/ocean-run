@@ -146,4 +146,12 @@ amount = 16
 texture = ExtResource("3_gntrk")
 process_material = SubResource("ParticleProcessMaterial_dewec")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1366314714]
+zoom = Vector2(6, 6)
+limit_left = -80
+limit_top = -200
+limit_bottom = 112
+limit_smoothed = true
+position_smoothing_enabled = true
+
 [connection signal="timeout" from="No_damage_time" to="." method="_on_no_damage_time_timeout"]

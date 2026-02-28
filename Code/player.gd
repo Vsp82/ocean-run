@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var Health := 4
 @onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
-@onready var explode_scene = preload(explode_scenes)
+@export var explode_scene : PackedScene
 
 var No_damage_time_active: bool = false
 var Coyote_time_active: bool = false
@@ -16,14 +16,15 @@ const SPEED := 120.0
 const ACCEL := 1500.0
 const FRICTION := 1500.0
 const JUMP_VELOCITY := -250.0
-const explode_scenes := "res://Scenes/explode_effect.tscn"
+var airtime := 0.0
+
+
+const DEFZOOM := [6.0, 6.0]
 
 func _process(_delta: float) -> void:
 	$"../CanvasLayer/Health".value = Health
 
-
 func _physics_process(delta: float) -> void:
-	
 	if velocity.y > 0:
 		if water:
 			gravity_modifier = 0.5
@@ -34,13 +35,21 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
+		
+		# cam zoom on velocity
+		airtime += delta
+		
 		if !Coyote_time_active:
 			CoyoteTime.start()
 			Coyote_time_active = true
 	else:
+		airtime = 0
 		if Coyote_time_active:
 			Coyote_time_active = false
 			CoyoteTime.stop()
+	var speed_factor = clamp(airtime / 0.75, 0.0, 0.5)  # 1.5 = seconds to reach max zoom out
+	var target_zoom = Vector2(6.0, 6.0) - Vector2(2.0, 2.0) * speed_factor
+	# $Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, 5.0 * delta)
 	if Input.is_action_just_pressed("Jump") and (!CoyoteTime.is_stopped() or is_on_floor() ):
 		velocity.y = JUMP_VELOCITY
 		CoyoteTime.stop()
