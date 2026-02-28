@@ -12,7 +12,7 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 				return
 			await wait(0.5)
 
-func _on_body_exited(body: CharacterBody2D) -> void:
+func _on_body_exited(_body: CharacterBody2D) -> void:
 	take_damage = false
 
 func wait(seconds: float):

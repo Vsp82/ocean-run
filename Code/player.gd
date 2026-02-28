@@ -9,12 +9,12 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var gravity_modifier: float = 1
 var water := true
 
-const SPEED := 200.0
+const SPEED := 120.0
 const ACCEL := 1500.0
 const FRICTION := 1500.0
-const JUMP_VELOCITY := -260.0
+const JUMP_VELOCITY := -250.0
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$"../CanvasLayer/Health".value = Health
 
 

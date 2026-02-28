@@ -1,17 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpq1d12mj6kr"]
+[gd_scene format=3 uid="uid://dpq1d12mj6kr"]
 
 [ext_resource type="Texture2D" uid="uid://sm6rd1faqkqa" path="res://Acets/icon.svg" id="1_cdj5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hotg"]
-size = Vector2(16, 6)
+size = Vector2(16, 5)
 
-[node name="Spike" type="StaticBody2D"]
+[node name="Spike" type="StaticBody2D" unique_id=719743564]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1312738539]
 position = Vector2(0, -3)
 scale = Vector2(0.125, 0.045)
 texture = ExtResource("1_cdj5a")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1019410851]
+position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_1hotg")
