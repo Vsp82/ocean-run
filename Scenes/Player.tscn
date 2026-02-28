@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://b7nl15vlkvu0w"]
 
 [ext_resource type="Script" uid="uid://c3omqfnl4qasx" path="res://Code/player.gd" id="1_kyqiw"]
-[ext_resource type="Texture2D" uid="uid://b6aurvtq4jfvr" path="res://Acets/WhatsApp_Image_2026-02-28_at_16.21.14-removebg-preview (2).png" id="2_kyqiw"]
+[ext_resource type="Texture2D" uid="uid://sm6rd1faqkqa" path="res://Acets/icon.svg" id="1_rpqav"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gntrk"]
-radius = 4.0
-height = 16.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kyqiw"]
+size = Vector2(16, 16)
 
 [sub_resource type="Animation" id="Animation_kyqiw"]
 length = 0.001
@@ -124,24 +123,6 @@ wait_time = 0.12
 one_shot = true
 
 [node name="No_damage_time" type="Timer" parent="." unique_id=1985696657]
-[node name="Player" type="CharacterBody2D" unique_id=1187681958 groups=["Player"]]
-collision_layer = 5
-collision_mask = 5
-script = ExtResource("1_kyqiw")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2101386723]
-scale = Vector2(0.031936128, 0.03212851)
-texture = ExtResource("2_kyqiw")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=340954681]
-position = Vector2(-1, 0)
-shape = SubResource("CapsuleShape2D_gntrk")
-
-[node name="CoyoteTime" type="Timer" parent="." unique_id=1853783207 groups=["Player"]]
-wait_time = 0.12
-one_shot = true
-
-[node name="No_damage_time" type="Timer" parent="." unique_id=345862471]
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=290526069]
