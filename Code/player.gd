@@ -64,6 +64,7 @@ func _on_air_body_exited(body: CharacterBody2D) -> void:
 
 
 func _on_damage_damage() -> void:
+	print("damage yes")
 	if No_damage_time_active == false:
 		Health -= 1
 		print(Health)
