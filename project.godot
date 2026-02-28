@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Ocean_Run"
-run/main_scene="uid://b3elt20v7eww4"
+run/main_scene="uid://mr5iqccadbw0"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://Acets/icon.svg"
 
