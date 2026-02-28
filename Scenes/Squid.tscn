@@ -9,28 +9,32 @@ height = 14.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xs40p"]
 
-[node name="Squid" type="CharacterBody2D" unique_id=436895269]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xs40p"]
+radius = 9.0
+
+[node name="Squid" type="CharacterBody2D" unique_id=436895269 groups=["Enemy"]]
 collision_layer = 8
-collision_mask = 9
+collision_mask = 8
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_xs40p")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=351487205]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=351487205 groups=["Enemy"]]
 scale = Vector2(0.032, 0.032)
 texture = ExtResource("2_fwcaj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=351667449]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=351667449 groups=["Enemy"]]
 shape = SubResource("CapsuleShape2D_s4tij")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=254694592]
-debug_enabled = true
 
 [node name="Timer" type="Timer" parent="." unique_id=1774085912]
 wait_time = 0.1
 autostart = true
 
 [node name="Vision" type="Area2D" parent="." unique_id=1398224432]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision" unique_id=30670844]
 scale = Vector2(10, 6.668)
@@ -39,7 +43,15 @@ debug_color = Color(0.52268845, 0.4351017, 0.9580557, 0.41960785)
 
 [node name="Timer2" type="Timer" parent="." unique_id=1300229217]
 
+[node name="Hitbox" type="Area2D" parent="." unique_id=1860826581 groups=["Enemy"]]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1750325019 groups=["Enemy"]]
+shape = SubResource("CircleShape2D_xs40p")
+debug_color = Color(1, 0, 0, 0.41960785)
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Vision" to="." method="_on_vision_body_entered"]
-[connection signal="body_exited" from="Vision" to="." method="_on_vision_body_exited"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

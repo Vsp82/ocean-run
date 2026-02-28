@@ -4,14 +4,19 @@ extends CharacterBody2D
 const  speed = 350
 const ACCEL = 2000
 
-var vision := false
+@export var Health = 1
 @export var player: Node2D
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 var moove := 5
 var time := true
+var vision := false
 
+func _process(_delta: float) -> void:
+	if Health <= 0:
+		$".".hide()
+		queue_free()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var direction = to_local(nav_agent.get_next_path_position()).normalized()
 	if vision and time:
 		if direction.x < 0:
@@ -19,8 +24,6 @@ func _physics_process(delta: float) -> void:
 		elif direction.x > 0:
 			$Sprite2D.flip_h = false
 		velocity = direction * speed
-		#velocity.x = move_toward(velocity.x, direction.x * speed, ACCEL * delta)
-		#velocity.y = move_toward(velocity.y, direction.y * speed, ACCEL * delta)
 		move_and_slide()
 		moove -= 1
 		if moove == 0:
@@ -29,7 +32,8 @@ func _physics_process(delta: float) -> void:
 			$Timer2.start()
 
 func makepath() -> void:
-	nav_agent.target_position = player.global_position
+	if Health > 0:
+		nav_agent.target_position = player.global_position
 	
 func _on_timer_timeout() -> void:
 	makepath()
@@ -44,3 +48,14 @@ func wait(seconds: float):
 
 func _on_timer_2_timeout() -> void:
 	time = true
+
+
+
+func _on_hitbox_body_entered(body) -> void:
+	print("hiit")
+	if body.is_in_group("Player"):
+		print("huhu")
+		Health -=1
+		if Health <= 0:
+			$".".hide()
+			queue_free()

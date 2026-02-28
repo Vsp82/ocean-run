@@ -285,9 +285,5 @@ limit_bottom = 112
 limit_smoothed = true
 position_smoothing_enabled = true
 
-[node name="spawnreset" type="Timer" parent="." unique_id=1483102353]
-wait_time = 2.0
-one_shot = true
-
 [connection signal="timeout" from="No_damage_time" to="." method="_on_no_damage_time_timeout"]
 [connection signal="body_entered" from="Attack" to="." method="_on_attack_body_entered"]
