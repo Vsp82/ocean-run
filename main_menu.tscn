@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://mr5iqccadbw0"]
+
+[ext_resource type="Shader" uid="uid://cb5qqpbgjmup8" path="res://ocean.gdshader" id="1_7vrkn"]
+[ext_resource type="Theme" uid="uid://b8a58m87p5igq" path="res://buttontheme.tres" id="2_fu7sn"]
+[ext_resource type="Script" uid="uid://b5y8n1087xxl" path="res://exit.gd" id="3_fu7sn"]
+[ext_resource type="Script" uid="uid://c25w8u3t5e27e" path="res://play.gd" id="3_jix8l"]
+[ext_resource type="PackedScene" uid="uid://b3elt20v7eww4" path="res://Scenes/Main.tscn" id="4_glbon"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jix8l"]
+shader = ExtResource("1_7vrkn")
+shader_parameter/wave_speed = 1.0
+shader_parameter/wave_strength = 0.02
+shader_parameter/wave_frequency = 8.0
+shader_parameter/shallow_color = Color(0, 0.5, 0.8, 1)
+shader_parameter/deep_color = Color(0, 0.1, 0.4, 1)
+shader_parameter/foam_threshold = 0.7
+shader_parameter/foam_color = Color(0.9, 0.95, 1, 1)
+shader_parameter/overlay_color = Color(0, 0, 0, 1)
+shader_parameter/overlay_strength = 0.390000018525
+
+[sub_resource type="Shader" id="Shader_7vrkn"]
+code = "shader_type canvas_item;
+
+uniform float cell_size = 32.0;
+uniform vec2 direction = vec2(1.0, 0.0);
+uniform float speed = 40.0;
+uniform float color_speed = 0.3;
+
+// --- Outline / Glow controls ---
+uniform vec4 outline_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float outline_width = 2.0;   // in pixels
+uniform float glow_radius = 6.0;     // how far the glow spreads
+uniform float glow_strength = 1.5;   // brightness multiplier
+uniform bool enable_glow = true;
+
+// HSV → RGB
+vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0/3.0, 1.0/3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+}
+
+// Returns the max alpha found in a radius around UV
+float sample_alpha_radius(sampler2D tex, vec2 uv, float radius) {
+    vec2 texel_size = 1.0 / vec2(textureSize(tex, 0)); // ← define once here
+    float max_a = 0.0;
+    for (float x = -radius; x <= radius; x += 1.0) {
+        for (float y = -radius; y <= radius; y += 1.0) {
+            if (length(vec2(x, y)) <= radius) {
+                vec2 offset_uv = uv + vec2(x, y) * texel_size;
+                max_a = max(max_a, texture(tex, offset_uv).a);
+            }
+        }
+    }
+    return max_a;
+}
+
+void fragment() {
+    vec4 tex = texture(TEXTURE, UV);
+
+    // --- Glow (soft falloff around the shape) ---
+    float glow_alpha = 0.0;
+    if (enable_glow) {
+        float near_alpha = sample_alpha_radius(TEXTURE, UV, glow_radius);
+        // Smooth falloff: closer to shape = stronger glow
+        glow_alpha = near_alpha * smoothstep(0.0, glow_radius, glow_radius - length(vec2(0.0)));
+        // Simpler approach: just use the sampled alpha as glow intensity
+        glow_alpha = (1.0 - tex.a) * near_alpha;
+    }
+
+    // --- Outline (1 pixel thick ring just outside the shape) ---
+    float outline_alpha = 0.0;
+    if (tex.a < 0.01) {
+        float neighbor_alpha = sample_alpha_radius(TEXTURE, UV, outline_width);
+        outline_alpha = step(0.01, neighbor_alpha); // 1.0 if near the shape
+    }
+
+    // --- Early discard if nothing to draw ---
+    if (tex.a < 0.01 && outline_alpha < 0.01 && glow_alpha < 0.01) discard;
+
+    // --- Checkerboard color logic (same as before) ---
+    vec2 pixel_pos = SCREEN_UV / SCREEN_PIXEL_SIZE;
+    vec2 move_offset = direction * TIME * speed;
+    pixel_pos += move_offset;
+    vec2 cell_id = floor(pixel_pos / cell_size);
+
+    float hue = mix(0.55, 0.65, fract((cell_id.x + cell_id.y) * 0.15 + TIME * color_speed));
+    vec3 rainbow = hsv2rgb(vec3(hue, 0.8, 0.6));
+
+    // --- Composite layers ---
+    if (tex.a >= 0.01) {
+        // Normal interior pixel — apply glow brightness boost too
+        vec3 final_color = rainbow * (enable_glow ? glow_strength : 1.0);
+        COLOR = vec4(final_color, 1.0);
+    } else if (outline_alpha > 0.01) {
+        // Outline ring
+        COLOR = outline_color;
+    } else {
+        // Glow halo outside the shape
+        COLOR = vec4(outline_color.rgb, glow_alpha * outline_color.a);
+    }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fu7sn"]
+shader = SubResource("Shader_7vrkn")
+shader_parameter/cell_size = 32.0
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed = 40.0
+shader_parameter/color_speed = 0.3
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 2.0
+shader_parameter/glow_radius = 6.0
+shader_parameter/glow_strength = 1.5
+shader_parameter/enable_glow = true
+
+[node name="MainMenu" type="Control" unique_id=301675771]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1344039827]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=51228275]
+material = SubResource("ShaderMaterial_jix8l")
+offset_right = 1155.0
+offset_bottom = 656.0
+
+[node name="Settings" type="Button" parent="CanvasLayer" unique_id=1886304535]
+offset_left = 521.0
+offset_top = 307.0
+offset_right = 1086.0
+offset_bottom = 444.0
+theme = ExtResource("2_fu7sn")
+text = "Settings
+"
+
+[node name="Play" type="Button" parent="CanvasLayer" unique_id=731441918]
+offset_left = 83.0
+offset_top = 216.0
+offset_right = 648.0
+offset_bottom = 353.0
+theme = ExtResource("2_fu7sn")
+text = "Play"
+script = ExtResource("3_jix8l")
+playascene = ExtResource("4_glbon")
+
+[node name="Exit" type="Button" parent="CanvasLayer" unique_id=2052819403]
+offset_left = 83.0
+offset_top = 451.0
+offset_right = 648.0
+offset_bottom = 588.0
+theme = ExtResource("2_fu7sn")
+text = "Exit"
+script = ExtResource("3_fu7sn")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=1787924072]
+material = SubResource("ShaderMaterial_fu7sn")
+offset_left = 12.0
+offset_top = 63.0
+offset_right = 735.0
+offset_bottom = 207.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer" unique_id=613882197]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(723, 144)
+render_target_update_mode = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1946192806]
+offset_left = 57.999996
+offset_top = -1.0
+offset_right = 650.0
+offset_bottom = 154.0
+rotation = -0.0731777
+theme_override_font_sizes/font_size = 113
+text = "Ocean Run"
+
+[connection signal="pressed" from="CanvasLayer/Play" to="CanvasLayer/Play" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/Exit" to="CanvasLayer/Exit" method="_on_pressed"]
