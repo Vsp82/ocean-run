@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var Health := 4
 @onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
-@export var explode_scene: PackedScene
+@onready var explode_scene = preload(explode_scenes)
 
 var No_damage_time_active: bool = false
 var Coyote_time_active: bool = false
@@ -16,6 +16,7 @@ const SPEED := 120.0
 const ACCEL := 1500.0
 const FRICTION := 1500.0
 const JUMP_VELOCITY := -250.0
+const explode_scenes := "res://Scenes/explode_effect.tscn"
 
 func _process(_delta: float) -> void:
 	$"../CanvasLayer/Health".value = Health

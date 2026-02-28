@@ -3,15 +3,15 @@
 [ext_resource type="Texture2D" uid="uid://bimpeyppvneqo" path="res://Acets/WhatsApp_Image_2026-02-28_at_19.28.39-removebg-preview.png" id="1_cdj5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hotg"]
-size = Vector2(16, 5)
+size = Vector2(16, 4)
 
 [node name="Spike" type="StaticBody2D" unique_id=719743564]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1312738539]
-position = Vector2(2.6810085e-08, -2.5)
+position = Vector2(2.6810085e-08, -2.5000002)
 scale = Vector2(0.032128517, 0.00998004)
 texture = ExtResource("1_cdj5a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1019410851]
-position = Vector2(0, -2.5)
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_1hotg")
