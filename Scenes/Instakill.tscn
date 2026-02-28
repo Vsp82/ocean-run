@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dq80h78q5t2n6"]
+[gd_scene format=3 uid="uid://dq80h78q5t2n6"]
 
 [ext_resource type="Script" uid="uid://famn5eyiqmtl" path="res://Code/instakill.gd" id="1_i6i4r"]
 
-[node name="Instakill" type="Area2D"]
+[node name="Instakill" type="Area2D" unique_id=417424381]
 script = ExtResource("1_i6i4r")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1712613089]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,26 +1,18 @@
 [gd_scene format=3 uid="uid://dk124s7tqff3j"]
 
-
-[ext_resource type="Shader" path="res://ocean.gdshader" id="1_n45e2"]
+[ext_resource type="Script" uid="uid://bajjgjk5yks68" path="res://Code/main_menu.gd" id="1_5egv6"]
+[ext_resource type="Shader" uid="uid://cb5qqpbgjmup8" path="res://ocean.gdshader" id="1_n45e2"]
 [ext_resource type="Theme" uid="uid://c2ixy34eh3ihw" path="res://buttontheme.tres" id="2_opfnp"]
-[ext_resource type="Script" path="res://play.gd" id="3_cp0ys"]
+[ext_resource type="Script" uid="uid://c25w8u3t5e27e" path="res://Code/play.gd" id="3_cp0ys"]
 [ext_resource type="PackedScene" uid="uid://b3elt20v7eww4" path="res://Scenes/Main.tscn" id="4_yhxw7"]
 [ext_resource type="Script" uid="uid://b5y8n1087xxl" path="res://Code/exit.gd" id="5_trj04"]
-
-[ext_resource type="Script" uid="uid://bajjgjk5yks68" path="res://Scenes/main_menu.gd" id="1_cp0ys"]
-[ext_resource type="Shader" uid="uid://cb5qqpbgjmup8" path="res://ocean.gdshader" id="1_n45e2"]
-[ext_resource type="Theme" uid="uid://b8a58m87p5igq" path="res://buttontheme.tres" id="2_opfnp"]
-[ext_resource type="Script" uid="uid://c25w8u3t5e27e" path="res://play.gd" id="3_cp0ys"]
-[ext_resource type="PackedScene" uid="uid://b3elt20v7eww4" path="res://Scenes/Main.tscn" id="4_yhxw7"]
-[ext_resource type="Script" uid="uid://b5y8n1087xxl" path="res://exit.gd" id="5_trj04"]
 [ext_resource type="Texture2D" uid="uid://ci80ns4folm70" path="res://Acets/WhatsApp_Image_2026-02-28_at_16.21.14-removebg-preview (2).png" id="7_5egv6"]
-[ext_resource type="Script" uid="uid://clxyjnx6rn3l" path="res://v_slider.gd" id="7_yhxw7"]
-[ext_resource type="Script" uid="uid://dhrdcd4q8sts" path="res://check_button.gd" id="8_trj04"]
+[ext_resource type="Script" uid="uid://clxyjnx6rn3l" path="res://Code/v_slider.gd" id="7_yhxw7"]
 [ext_resource type="Texture2D" uid="uid://cxpwb6678e7qb" path="res://Acets/Screenshot_2026-02-28_165850-removebg-preview.png" id="8_vtepg"]
-[ext_resource type="Script" uid="uid://5ouh6jskkm4l" path="res://Scenes/label_3.gd" id="9_trj04"]
 [ext_resource type="Texture2D" uid="uid://dg3vdimian6as" path="res://A.png" id="10_16hvj"]
+[ext_resource type="Script" uid="uid://dhrdcd4q8sts" path="res://Code/check_button.gd" id="10_vtepg"]
+[ext_resource type="Script" uid="uid://5ouh6jskkm4l" path="res://Code/label_3.gd" id="11_8dnnj"]
 [ext_resource type="Texture2D" uid="uid://2s55s7vrnbv8" path="res://Right Stick Left-Right.png" id="13_8dnnj"]
-
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jix8l"]
 shader = ExtResource("1_n45e2")
@@ -268,7 +260,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_cp0ys")
+script = ExtResource("1_5egv6")
 
 [node name="bg" type="CanvasLayer" parent="." unique_id=1344039827]
 
@@ -416,7 +408,7 @@ offset_right = 252.0
 offset_bottom = 456.0
 scale = Vector2(5, 5)
 theme = SubResource("Theme_vtepg")
-script = ExtResource("8_trj04")
+script = ExtResource("10_vtepg")
 
 [node name="bak" type="Button" parent="Settings" unique_id=1800082481]
 offset_left = 848.0
@@ -438,7 +430,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 26
 text = "Death counter: 0"
-script = ExtResource("9_trj04")
+script = ExtResource("11_8dnnj")
 
 [node name="Label4" type="Label" parent="Settings" unique_id=227717414]
 offset_left = 607.0

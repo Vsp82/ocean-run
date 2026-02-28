@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://8fn1fqn3t7wp"]
 
-[ext_resource type="Script" uid="uid://bi2hdwvioh3m8" path="res://Scenes/explode_effect.gd" id="1_kldrn"]
+[ext_resource type="Script" uid="uid://djbhmil6uley8" path="res://Code/exploadupeffect.gd" id="1_o0hyg"]
 
 [sub_resource type="Curve" id="Curve_cqb37"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 0.8089888), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -33,7 +33,7 @@ alpha_curve = SubResource("CurveTexture_dewec")
 
 [node name="ExplodeUpEffect" type="Node2D" unique_id=2092162414]
 z_index = -2
-script = ExtResource("1_kldrn")
+script = ExtResource("1_o0hyg")
 
 [node name="explode" type="GPUParticles2D" parent="." unique_id=874954278]
 z_index = -1

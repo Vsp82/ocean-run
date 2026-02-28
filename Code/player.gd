@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var No_damage_time: Timer = $No_damage_time
 
 @onready var explode_scene = preload(explode_scenes)
+@onready var explode_up_scene = preload(explode_up_scenes)
 @onready var text11 = preload(text1)
 @onready var text22 = preload(text2)
 @onready var cHealt = $"../CanvasLayer/Health"
@@ -18,7 +19,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var gravity_modifier: float = 1
 var water := true
 var was_on_floor := false
-var text = 0
+var text := 0
+var hit := true
 
 const SPEED := 120.0
 const ACCEL := 1500.0
@@ -26,12 +28,13 @@ const FRICTION := 1500.0
 const JUMP_VELOCITY := -250.0
 
 const explode_scenes := "res://Scenes/explode_effect.tscn"
+const explode_up_scenes := "res://Scenes/explode_up_effect.tscn"
 const text1 := "res://Acets/image-removebg-preview.png"
 const text2 := "res://Acets/WhatsApp_Image_2026-02-28_at_21.26.27-removebg-preview.png"
 
 var airtime := 0.0
 
-@onready var instakill = $""
+@onready var instakill := $"../Instakill"
 
 const DEFZOOM := [6.0, 6.0]
 
@@ -45,7 +48,10 @@ func _process(_delta: float) -> void:
 		$GPUParticles2D.texture = text22
 		text -= 1
 	if Input.is_action_just_pressed("Attack"):
-		Attack()
+		if hit:
+			Attack()
+			hit = false
+			$Hit_Cooldown.start()
 
 func _physics_process(delta: float) -> void:
 	if velocity.y > 0:
@@ -70,9 +76,9 @@ func _physics_process(delta: float) -> void:
 		if Coyote_time_active:
 			Coyote_time_active = false
 			CoyoteTime.stop()
-	var speed_factor = clamp(airtime / 0.75, 0.0, 0.5)  # 1.5 = seconds to reach max zoom out
-	var target_zoom = Vector2(6.0, 6.0) - Vector2(2.0, 2.0) * speed_factor
-	# $Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, 5.0 * delta)
+	#var speed_factor = clamp(airtime / 0.75, 0.0, 0.5)  # 1.5 = seconds to reach max zoom out
+	#var target_zoom = Vector2(6.0, 6.0) - Vector2(2.0, 2.0) * speed_factor
+	#$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, 5.0 * delta)
 	if Input.is_action_just_pressed("Jump") and (!CoyoteTime.is_stopped() or is_on_floor() ):
 		velocity.y = JUMP_VELOCITY
 		CoyoteTime.stop()
@@ -168,3 +174,7 @@ func _on_attack_body_entered(body) -> void:
 	if body.is_in_group("Enemy"):
 		print("Enemy hit")
 		body.Health -= 1
+
+
+func _on_hit_cooldown_timeout() -> void:
+	hit = true

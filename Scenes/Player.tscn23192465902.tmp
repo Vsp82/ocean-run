@@ -117,7 +117,7 @@ scale_min = 0.03
 scale_max = 0.049999997
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
-size = Vector2(12.75, 8)
+size = Vector2(25.75, 15.75)
 
 [sub_resource type="Animation" id="Animation_dewec"]
 resource_name = "Attack"
@@ -228,8 +228,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=2033505834 groups=["Player"]]
-collision_layer = 77
-collision_mask = 69
+collision_layer = 13
+collision_mask = 5
 script = ExtResource("1_kyqiw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1335037696]
@@ -265,18 +265,17 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=85823970 groups=["Player"]]
-position = Vector2(9.625, 0)
+position = Vector2(16.125, -0.125)
 shape = SubResource("RectangleShape2D_gntrk")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1055349734]
 visible = false
-position = Vector2(9.5, 4.7683716e-07)
-scale = Vector2(0.0066258917, 0.03333334)
+position = Vector2(16, 2.3841858e-07)
+scale = Vector2(0.013251784, 0.06666667)
 texture = ExtResource("4_dewec")
 
 [node name="Attack2" type="AnimationPlayer" parent="." unique_id=909476743]
 libraries/ = SubResource("AnimationLibrary_5ixxa")
-speed_scale = 4.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1366314714]
 zoom = Vector2(6, 6)
@@ -290,9 +289,5 @@ position_smoothing_enabled = true
 wait_time = 2.0
 one_shot = true
 
-[node name="Hit_Cooldown" type="Timer" parent="." unique_id=615793449]
-one_shot = true
-
 [connection signal="timeout" from="No_damage_time" to="." method="_on_no_damage_time_timeout"]
 [connection signal="body_entered" from="Attack" to="." method="_on_attack_body_entered"]
-[connection signal="timeout" from="Hit_Cooldown" to="." method="_on_hit_cooldown_timeout"]
