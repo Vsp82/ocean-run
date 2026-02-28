@@ -9,7 +9,7 @@ extends CharacterBody2D
 @onready var text22 = preload(text2)
 @onready var cHealt = $"../CanvasLayer/Health"
 
-@export var explode_scene : PackedScene
+
 
 
 var No_damage_time_active: bool = false
