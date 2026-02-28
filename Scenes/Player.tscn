@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://b7nl15vlkvu0w"]
 
 [ext_resource type="Script" uid="uid://c3omqfnl4qasx" path="res://Code/player.gd" id="1_kyqiw"]
-[ext_resource type="PackedScene" uid="uid://cl4nf4o5xaf7w" path="res://Scenes/explode_effect.tscn" id="2_dewec"]
 [ext_resource type="Texture2D" uid="uid://ci80ns4folm70" path="res://Acets/WhatsApp_Image_2026-02-28_at_16.21.14-removebg-preview (2).png" id="2_kyqiw"]
-[ext_resource type="Texture2D" uid="uid://dovo1ait4ltcd" path="res://index.icon.png" id="3_gntrk"]
+[ext_resource type="Texture2D" uid="uid://dh1an4s247gf0" path="res://Acets/image-removebg-preview.png" id="3_gntrk"]
+[ext_resource type="Texture2D" uid="uid://bhvvnngdsu4t0" path="res://Acets/health.png" id="4_dewec"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kyqiw"]
 radius = 3.0
@@ -116,11 +116,121 @@ gravity = Vector3(0, -12.5, 0)
 scale_min = 0.03
 scale_max = 0.049999997
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
+size = Vector2(25.75, 15.75)
+
+[sub_resource type="Animation" id="Animation_dewec"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Attack:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.001, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.001, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Attack:monitorable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.001, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Attack:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.001, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_5ixxa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Attack:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Attack:monitorable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Attack:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ixxa"]
+_data = {
+&"Attack": SubResource("Animation_dewec"),
+&"RESET": SubResource("Animation_5ixxa")
+}
+
 [node name="Player" type="CharacterBody2D" unique_id=2033505834 groups=["Player"]]
-collision_layer = 9
-collision_mask = 9
+collision_layer = 13
+collision_mask = 5
 script = ExtResource("1_kyqiw")
-explode_scene = ExtResource("2_dewec")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1335037696]
 position = Vector2(0, -9.536743e-07)
@@ -142,8 +252,30 @@ libraries/ = SubResource("AnimationLibrary_dewec")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=582788495]
 z_index = -1
+scale = Vector2(0.5, 0.5)
 amount = 16
 texture = ExtResource("3_gntrk")
 process_material = SubResource("ParticleProcessMaterial_dewec")
 
+[node name="Attack" type="Area2D" parent="." unique_id=395428264 groups=["Player"]]
+visible = false
+collision_layer = 24
+collision_mask = 24
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=85823970 groups=["Player"]]
+position = Vector2(16.125, -0.125)
+shape = SubResource("RectangleShape2D_gntrk")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1055349734]
+visible = false
+position = Vector2(16, 2.3841858e-07)
+scale = Vector2(0.013251784, 0.06666667)
+texture = ExtResource("4_dewec")
+
+[node name="Attack2" type="AnimationPlayer" parent="." unique_id=909476743]
+libraries/ = SubResource("AnimationLibrary_5ixxa")
+
 [connection signal="timeout" from="No_damage_time" to="." method="_on_no_damage_time_timeout"]
+[connection signal="body_entered" from="Attack" to="." method="_on_attack_body_entered"]

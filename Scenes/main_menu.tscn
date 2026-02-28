@@ -1,10 +1,10 @@
-[gd_scene format=3 uid="uid://mr5iqccadbw0"]
+[gd_scene format=3 uid="uid://dk124s7tqff3j"]
 
-[ext_resource type="Shader" uid="uid://cb5qqpbgjmup8" path="res://ocean.gdshader" id="1_n45e2"]
-[ext_resource type="Theme" uid="uid://b8a58m87p5igq" path="res://buttontheme.tres" id="2_opfnp"]
-[ext_resource type="Script" uid="uid://c25w8u3t5e27e" path="res://play.gd" id="3_cp0ys"]
+[ext_resource type="Shader" path="res://ocean.gdshader" id="1_n45e2"]
+[ext_resource type="Theme" uid="uid://c2ixy34eh3ihw" path="res://buttontheme.tres" id="2_opfnp"]
+[ext_resource type="Script" path="res://play.gd" id="3_cp0ys"]
 [ext_resource type="PackedScene" uid="uid://b3elt20v7eww4" path="res://Scenes/Main.tscn" id="4_yhxw7"]
-[ext_resource type="Script" uid="uid://b5y8n1087xxl" path="res://exit.gd" id="5_trj04"]
+[ext_resource type="Script" uid="uid://b5y8n1087xxl" path="res://Code/exit.gd" id="5_trj04"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jix8l"]
 shader = ExtResource("1_n45e2")

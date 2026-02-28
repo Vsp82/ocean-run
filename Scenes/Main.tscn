@@ -124,7 +124,8 @@ texture = ExtResource("1_r150o")
 7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_kln2b"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 9
+physics_layer_0/collision_mask = 9
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_idj7w")
 
@@ -150,7 +151,6 @@ tile_set = SubResource("TileSet_kln2b")
 z_index = 10
 position = Vector2(-54, 86)
 collision_layer = 5
-collision_mask = 5
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=2131898979]
 zoom = Vector2(6, 6)
@@ -276,14 +276,14 @@ player = NodePath("../Player")
 shape = SubResource("CircleShape2D_jw32o")
 debug_color = Color(1, 0, 0, 0.05490196)
 
-[node name="Squid2" parent="." unique_id=2105579350 node_paths=PackedStringArray("player") instance=ExtResource("7_jw32o")]
+[node name="Squid2" parent="." unique_id=4759257 node_paths=PackedStringArray("player") instance=ExtResource("7_jw32o")]
 z_index = 11
 position = Vector2(-1, 62)
 player = NodePath("../Player")
 
-[node name="Damage" parent="Squid2" unique_id=405175291 instance=ExtResource("5_pbw6q")]
+[node name="Damage" parent="Squid2" unique_id=254023939 instance=ExtResource("5_pbw6q")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Squid2/Damage" unique_id=500022773]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Squid2/Damage" unique_id=1025400323]
 shape = SubResource("CircleShape2D_jw32o")
 debug_color = Color(1, 0, 0, 0.05490196)
 

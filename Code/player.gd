@@ -4,6 +4,9 @@ extends CharacterBody2D
 @onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
 @onready var explode_scene = preload(explode_scenes)
+@onready var text11 = preload(text1)
+@onready var text22 = preload(text2)
+@onready var cHealt = $"../CanvasLayer/Health"
 
 var No_damage_time_active: bool = false
 var Coyote_time_active: bool = false
@@ -11,15 +14,26 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var gravity_modifier: float = 1
 var water := true
 var was_on_floor := false
+var text = 0
 
 const SPEED := 120.0
 const ACCEL := 1500.0
 const FRICTION := 1500.0
 const JUMP_VELOCITY := -250.0
 const explode_scenes := "res://Scenes/explode_effect.tscn"
+const text1 := "res://Acets/image-removebg-preview.png"
+const text2 := "res://Acets/WhatsApp_Image_2026-02-28_at_21.26.27-removebg-preview.png"
 
 func _process(_delta: float) -> void:
-	$"../CanvasLayer/Health".value = Health
+	cHealt.value = Health
+	if text == 0:
+		$GPUParticles2D.texture = text11
+		text += 1
+	else:
+		$GPUParticles2D.texture = text22
+		text -= 1
+	if Input.is_action_just_pressed("Attack"):
+		Attack()
 
 
 func _physics_process(delta: float) -> void:
@@ -52,8 +66,12 @@ func _physics_process(delta: float) -> void:
 	
 	if direction < 0:
 		$Sprite2D.flip_h = true
+		$Attack.rotation_degrees = 180
+		$Sprite2D2.position = Vector2(-11, 0)
 	elif direction > 0:
 		$Sprite2D.flip_h = false
+		$Attack.rotation_degrees = 0
+		$Sprite2D2.position = Vector2(11, 0)
 	if direction:
 		# moving
 		velocity.x = move_toward(velocity.x, direction * SPEED, ACCEL * delta)
@@ -102,3 +120,16 @@ func _on_no_damage_time_timeout() -> void:
 func _ready() -> void:
 	# default
 	$Sprite2D.modulate.a = 1.0
+
+func Attack():
+	print("attack")
+	$Attack2.play("Attack")
+
+func wait(seconds: float):
+	await get_tree().create_timer(seconds).timeout
+
+
+func _on_attack_body_entered(body) -> void:
+	if body.is_in_group("Enemy"):
+		print("Enemy hit")
+		body.Health -= 1

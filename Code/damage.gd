@@ -3,7 +3,7 @@ extends Area2D
 var take_damage := false
 
 # On the spike, emit a signal or just call the player directly
-func _on_body_entered(body: CharacterBody2D) -> void:
+func _on_body_entered(body) -> void:
 	if body.is_in_group("Player"):
 		take_damage = true
 		while take_damage:
@@ -12,7 +12,7 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 				return
 			await wait(0.5)
 
-func _on_body_exited(_body: CharacterBody2D) -> void:
+func _on_body_exited(_body) -> void:
 	take_damage = false
 
 func wait(seconds: float):
