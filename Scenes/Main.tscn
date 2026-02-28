@@ -309,6 +309,7 @@ limit_left = -80
 limit_top = -200
 limit_bottom = 112
 limit_smoothed = true
+position_smoothing_enabled = true
 
 [node name="Instakill" parent="." unique_id=781367514 instance=ExtResource("3_kln2b")]
 

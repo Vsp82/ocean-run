@@ -1,7 +1,12 @@
 [gd_scene format=3 uid="uid://b7nl15vlkvu0w"]
 
 [ext_resource type="Script" uid="uid://c3omqfnl4qasx" path="res://Code/player.gd" id="1_kyqiw"]
+
 [ext_resource type="Texture2D" uid="uid://ci80ns4folm70" path="res://Acets/WhatsApp_Image_2026-02-28_at_16.21.14-removebg-preview (2).png" id="2_kyqiw"]
+
+[ext_resource type="Texture2D" uid="uid://sm6rd1faqkqa" path="res://Acets/icon.svg" id="1_rpqav"]
+[ext_resource type="Texture2D" uid="uid://dovo1ait4ltcd" path="res://index.icon.png" id="3_gntrk"]
+
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kyqiw"]
 radius = 3.0
@@ -108,6 +113,12 @@ _data = {
 &"playeflash": SubResource("Animation_gntrk")
 }
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dewec"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -12.5, 0)
+scale_min = 0.03
+scale_max = 0.049999997
+
 [node name="Player" type="CharacterBody2D" unique_id=2033505834 groups=["Player"]]
 script = ExtResource("1_kyqiw")
 
@@ -128,5 +139,11 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=290526069]
 libraries/ = SubResource("AnimationLibrary_dewec")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=582788495]
+z_index = -1
+amount = 16
+texture = ExtResource("3_gntrk")
+process_material = SubResource("ParticleProcessMaterial_dewec")
 
 [connection signal="timeout" from="No_damage_time" to="." method="_on_no_damage_time_timeout"]
