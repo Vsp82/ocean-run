@@ -8,7 +8,7 @@ func _on_body_entered(body: CharacterBody2D) -> void:
 		take_damage = true
 		while take_damage:
 			body.take_damage()  # let the player handle its own damage
-			if $"../../../Player".Health == 0:
+			if body.Health == 0:
 				return
 			await wait(0.5)
 

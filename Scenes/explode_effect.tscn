@@ -32,9 +32,11 @@ color = Color(0, 0.49850953, 0.90369713, 1)
 alpha_curve = SubResource("CurveTexture_dewec")
 
 [node name="ExplodeEffect" type="Node2D" unique_id=2092162414]
+z_index = -2
 script = ExtResource("1_2wydx")
 
 [node name="explode" type="GPUParticles2D" parent="." unique_id=874954278]
+z_index = -1
 position = Vector2(0, 8)
 emitting = false
 amount = 4
