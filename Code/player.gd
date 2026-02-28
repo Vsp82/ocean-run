@@ -80,6 +80,9 @@ func _physics_process(delta: float) -> void:
 	was_on_floor = is_on_floor()
 
 func _on_landed() -> void:
+	if Global.rumble_enabled:
+		var impact = clamp(airtime / 1.5, 0.1, 1.0)
+		Input.start_joy_vibration(0, impact, impact, 0.1)	
 	var explosion = explode_scene.instantiate()
 	explosion.global_position = global_position
 	get_parent().add_child(explosion)
@@ -87,6 +90,8 @@ func _on_landed() -> void:
 func take_damage() -> void:
 	if No_damage_time_active:
 		return
+	if Global.rumble_enabled:
+		Input.start_joy_vibration(0, 0.8, 0.3, 0.4)
 	No_damage_time_active = true
 	Health -= 1
 	$AnimationPlayer.play("playeflash")
