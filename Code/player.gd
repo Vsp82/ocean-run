@@ -42,6 +42,12 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("Left", "Right")
+	
+	if direction > 0:
+		$Sprite2D.flip_h = false
+	elif direction < 0:
+		$Sprite2D.flip_h = true
+	
 	if direction:
 		velocity.x = direction * SPEED
 	else:
@@ -62,13 +68,6 @@ func _on_air_body_exited(body: CharacterBody2D) -> void:
 	if body.is_in_group("Player"):
 		water = true
 
-
-func _on_damage_damage() -> void:
-	print("damage yes")
-	if No_damage_time_active == false:
-		Health -= 1
-		print(Health)
-		No_damage_time.start()
 
 
 func _on_no_damage_time_timeout() -> void:
