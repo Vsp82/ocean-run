@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
 @export var explode_scene : PackedScene
+@export var explode_up_scene : PackedScene
 
 var No_damage_time_active: bool = false
 var Coyote_time_active: bool = false
@@ -18,6 +19,7 @@ const FRICTION := 1500.0
 const JUMP_VELOCITY := -250.0
 var airtime := 0.0
 
+@onready var instakill = $""
 
 const DEFZOOM := [6.0, 6.0]
 
@@ -87,6 +89,17 @@ func _on_landed() -> void:
 	explosion.global_position = global_position
 	get_parent().add_child(explosion)
 
+func take_fall_damage() -> void:
+	set_physics_process(false)
+	var explode = explode_up_scene.instantiate()
+	explode.global_position = global_position
+	get_parent().add_child(explode)
+	var timer = $spawnreset
+	timer.start()
+	await timer.timeout
+	Global.add_death()
+	get_tree().reload_current_scene()
+
 func take_damage() -> void:
 	if No_damage_time_active:
 		return
@@ -117,3 +130,8 @@ func _on_no_damage_time_timeout() -> void:
 func _ready() -> void:
 	# default
 	$Sprite2D.modulate.a = 1.0
+
+func _on_instakill_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		print("you died from fall damage")
+		take_fall_damage()

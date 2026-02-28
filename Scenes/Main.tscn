@@ -152,7 +152,7 @@ position = Vector2(-54, 86)
 collision_layer = 5
 collision_mask = 5
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=2131898979]
+[node name="Camera2D2" type="Camera2D" parent="Player" unique_id=2131898979]
 zoom = Vector2(6, 6)
 limit_left = -80
 limit_top = -200
@@ -163,7 +163,7 @@ position_smoothing_enabled = true
 [node name="Instakill" parent="." unique_id=781367514 instance=ExtResource("3_kln2b")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Instakill" unique_id=1555127060]
-position = Vector2(696, 123)
+position = Vector2(696, 121)
 shape = SubResource("RectangleShape2D_rgh2o")
 debug_color = Color(0.7733009, 0.44158664, 0.083258234, 0.41960785)
 
@@ -287,6 +287,7 @@ player = NodePath("../Player")
 shape = SubResource("CircleShape2D_jw32o")
 debug_color = Color(1, 0, 0, 0.05490196)
 
+[connection signal="body_entered" from="Instakill" to="Player" method="_on_instakill_body_entered"]
 [connection signal="body_entered" from="Air" to="Player" method="_on_air_body_entered"]
 [connection signal="body_exited" from="Air" to="Player" method="_on_air_body_exited"]
 [connection signal="body_exited" from="Spikes/Spike/Damage" to="Player" method="_on_damage_body_exited"]

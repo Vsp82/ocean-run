@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c3omqfnl4qasx" path="res://Code/player.gd" id="1_kyqiw"]
 [ext_resource type="PackedScene" uid="uid://cl4nf4o5xaf7w" path="res://Scenes/explode_effect.tscn" id="2_dewec"]
 [ext_resource type="Texture2D" uid="uid://ci80ns4folm70" path="res://Acets/WhatsApp_Image_2026-02-28_at_16.21.14-removebg-preview (2).png" id="2_kyqiw"]
+[ext_resource type="PackedScene" uid="uid://8fn1fqn3t7wp" path="res://explode_up_effect.tscn" id="3_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://dovo1ait4ltcd" path="res://index.icon.png" id="3_gntrk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kyqiw"]
@@ -121,6 +122,7 @@ collision_layer = 9
 collision_mask = 9
 script = ExtResource("1_kyqiw")
 explode_scene = ExtResource("2_dewec")
+explode_up_scene = ExtResource("3_5ixxa")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1335037696]
 position = Vector2(0, -9.536743e-07)
@@ -153,5 +155,9 @@ limit_top = -200
 limit_bottom = 112
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="spawnreset" type="Timer" parent="." unique_id=1483102353]
+wait_time = 2.0
+one_shot = true
 
 [connection signal="timeout" from="No_damage_time" to="." method="_on_no_damage_time_timeout"]
