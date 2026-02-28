@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var Health = 4
+@export var Health := 4
 @onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
 var No_damage_time_active: bool = false
