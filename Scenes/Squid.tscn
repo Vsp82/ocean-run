@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://ckckammpbk7wo"]
+
+[ext_resource type="Script" uid="uid://dwua5ppniml0k" path="res://Code/squid.gd" id="1_xs40p"]
+[ext_resource type="Texture2D" uid="uid://cxpwb6678e7qb" path="res://Acets/Screenshot_2026-02-28_165850-removebg-preview.png" id="2_fwcaj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s4tij"]
+radius = 7.0
+height = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xs40p"]
+
+[node name="Squid" type="CharacterBody2D" unique_id=436895269]
+collision_layer = 8
+collision_mask = 9
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_xs40p")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=351487205]
+scale = Vector2(0.032, 0.032)
+texture = ExtResource("2_fwcaj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=351667449]
+shape = SubResource("CapsuleShape2D_s4tij")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=254694592]
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="." unique_id=1774085912]
+wait_time = 0.1
+autostart = true
+
+[node name="Vision" type="Area2D" parent="." unique_id=1398224432]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision" unique_id=30670844]
+scale = Vector2(8, 5.334)
+shape = SubResource("RectangleShape2D_xs40p")
+debug_color = Color(0.52268845, 0.4351017, 0.9580557, 0.41960785)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="Vision" to="." method="_on_vision_body_exited"]
