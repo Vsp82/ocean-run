@@ -1,11 +1,10 @@
 extends VSlider
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	min_value = -40.0
+	max_value = 0.0
+	value = Global.master_volume
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_value_changed(v: float) -> void:
+	AudioServer.set_bus_volume_db(0, v)
+	Global.save_volume(v)

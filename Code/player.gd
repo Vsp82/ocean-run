@@ -97,7 +97,8 @@ func take_damage() -> void:
 	$AnimationPlayer.play("playeflash")
 	No_damage_time.start()
 	print(Health)
-	if Health <= 0:
+	if Health <= 0: # dead
+		Global.add_death()
 		get_tree().reload_current_scene()
 
 func _on_air_body_entered(body: CharacterBody2D) -> void:
