@@ -41,7 +41,6 @@ const ZOOM_IN_SPEED   := 2.0                 # how slowly it recovers (feels wei
 
 
 func _process(_delta: float) -> void:
-	
 	cHealt.value = Global.Health
 	if text == 0:
 		$GPUParticles2D.texture = text11
@@ -56,16 +55,33 @@ func _process(_delta: float) -> void:
 			$Hit_Cooldown.start()
 
 func _physics_process(_delta: float) -> void:
-	var speed_mod := 1
-	var direction := get_global_mouse_position() - global_position
-
-	velocity = direction.normalized() * SPEED * speed_mod
-	look_at(get_global_mouse_position())
+	var stick := Vector2(
+		Input.get_joy_axis(0, JOY_AXIS_LEFT_X),
+		Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)
+	)
+	
+	var direction: Vector2
+	var speed_factor: float
+	
+	if stick.length() > 0.1:
+		direction = stick.normalized()
+		speed_factor = clamp(stick.length(), 0.0, 1.0)
+		look_at(global_position + stick)
+	else:
+		var to_mouse := get_global_mouse_position() - global_position
+		var distance := to_mouse.length()
+		var dead_zone := 10.0
+		var max_dist := 75.0
+		direction = to_mouse.normalized()
+		speed_factor = clamp((distance - dead_zone) / max_dist, 0.0, 1.0)
+		if distance > dead_zone:
+			look_at(get_global_mouse_position())
+	
+	velocity = direction * SPEED * speed_factor if speed_factor > 0.0 else Vector2.ZERO
 	move_and_slide()
 	
 	if is_on_floor() and !was_on_floor:
 		_on_landed()
-	
 	was_on_floor = is_on_floor()
 
 func _on_landed() -> void:
