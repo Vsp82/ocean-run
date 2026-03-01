@@ -1,3 +1,19 @@
 [gd_scene format=3 uid="uid://dgt5i0vg4nqux"]
 
-[node name="Boss" type="Node2D" unique_id=1494271269]
+[ext_resource type="Texture2D" uid="uid://trc5e1rxo1bq" path="res://Acets/image-removebg-preview (2) (1).png" id="1_0154r"]
+[ext_resource type="Script" uid="uid://dasfqy3l76jvs" path="res://Scenes/boss.gd" id="1_wwfse"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wwfse"]
+
+[node name="Boss" type="CharacterBody2D" unique_id=1732988060 groups=["Enemy"]]
+script = ExtResource("1_wwfse")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=213769367 groups=["Enemy"]]
+scale = Vector2(0.062, 0.062)
+texture = ExtResource("1_0154r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1538128206 groups=["Enemy"]]
+shape = SubResource("CapsuleShape2D_wwfse")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=546707570]
+simplify_path = true

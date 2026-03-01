@@ -1,11 +1,13 @@
 [gd_scene format=4 uid="uid://f6as148ujfhx"]
 
+[ext_resource type="Script" uid="uid://cbe1nelv2200b" path="res://Scenes/area_2.gd" id="1_0oub5"]
 [ext_resource type="PackedScene" uid="uid://pjvrrjmwwy7v" path="res://Scenes/player_swim.tscn" id="1_nya0h"]
 [ext_resource type="Texture2D" uid="uid://da8cqaqdiocaf" path="res://Acets/health_back.png" id="2_l2x4t"]
 [ext_resource type="Texture2D" uid="uid://6w40ogj4oly" path="res://Acets/image-removebg-preview (7).png" id="3_pbtnt"]
 [ext_resource type="Texture2D" uid="uid://bi4nrh6u6u01h" path="res://Acets/tiles2.png" id="4_pbtnt"]
 [ext_resource type="PackedScene" uid="uid://ckckammpbk7wo" path="res://Scenes/Squid.tscn" id="5_phcop"]
 [ext_resource type="PackedScene" uid="uid://cknosgd186yyl" path="res://Scenes/damage.tscn" id="6_7h7mv"]
+[ext_resource type="PackedScene" uid="uid://dpq1d12mj6kr" path="res://Scenes/spike.tscn" id="6_d407d"]
 [ext_resource type="Script" uid="uid://cb2bhnwqxfpaq" path="res://Scenes/next_area.gd" id="7_7h7mv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rrwio"]
@@ -73,6 +75,9 @@ tile_size = Vector2i(320, 320)
 physics_layer_0/collision_layer = 1
 sources/4 = SubResource("TileSetAtlasSource_co5vv")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_db12a"]
+size = Vector2(16, 4)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_0oub5"]
 radius = 8.0
 
@@ -80,6 +85,7 @@ radius = 8.0
 size = Vector2(41, 41)
 
 [node name="Area 2" type="Node2D" unique_id=487707444]
+script = ExtResource("1_0oub5")
 
 [node name="Player_swim" parent="." unique_id=2126484536 instance=ExtResource("1_nya0h")]
 
@@ -87,6 +93,7 @@ size = Vector2(41, 41)
 zoom = Vector2(5.5, 5.5)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1798189137]
+visible = false
 
 [node name="Health" type="TextureProgressBar" parent="CanvasLayer" unique_id=1155515026]
 offset_left = -19.0
@@ -111,13 +118,46 @@ tile_set = SubResource("TileSet_0oub5")
 
 [node name="spike" type="Node" parent="." unique_id=373204055]
 
+[node name="Spike" parent="spike" unique_id=719743564 instance=ExtResource("6_d407d")]
+position = Vector2(165, 20)
+rotation = -1.5707964
+
+[node name="Damage" parent="spike/Spike" unique_id=254023939 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spike/Spike/Damage" unique_id=801043827]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_db12a")
+debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
+
+[node name="Spike2" parent="spike" unique_id=1999802027 instance=ExtResource("6_d407d")]
+position = Vector2(181, 61)
+
+[node name="Damage" parent="spike/Spike2" unique_id=1604172916 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spike/Spike2/Damage" unique_id=1502587385]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_db12a")
+debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
+
+[node name="Spike3" parent="spike" unique_id=288452858 instance=ExtResource("6_d407d")]
+position = Vector2(241, 14)
+rotation = -1.5707964
+
+[node name="Damage" parent="spike/Spike3" unique_id=505360564 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spike/Spike3/Damage" unique_id=798356009]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_db12a")
+debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
+
 [node name="Squid" type="Node" parent="." unique_id=1398379797]
 
 [node name="Squid" parent="Squid" unique_id=436895269 node_paths=PackedStringArray("player") instance=ExtResource("5_phcop")]
+visible = false
 position = Vector2(216.4376, 61.271774)
 player = NodePath("../../Player_swim")
 
-[node name="Damage" parent="Squid/Squid" unique_id=254023939 instance=ExtResource("6_7h7mv")]
+[node name="Damage" parent="Squid/Squid" unique_id=311619648 instance=ExtResource("6_7h7mv")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Squid/Squid/Damage" unique_id=33741648]
 shape = SubResource("CircleShape2D_0oub5")
