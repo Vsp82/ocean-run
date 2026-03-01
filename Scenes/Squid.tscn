@@ -22,7 +22,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"base",
-"speed": 5.0
+"speed": 1.5
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s4tij"]
@@ -46,7 +46,7 @@ position = Vector2(-0.9999999, 0)
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_76etv")
 animation = &"base"
-frame_progress = 0.8406091
+frame_progress = 0.67280304
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=351667449 groups=["Enemy"]]
 shape = SubResource("CapsuleShape2D_s4tij")

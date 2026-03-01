@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3omqfnl4qasx" path="res://Code/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://bl106bqd3h66o" path="res://image-removebg-preview (2).png" id="2_dewec"]
-[ext_resource type="Texture2D" uid="uid://brpyejknynfuh" path="res://Acets/image-removebg-preview (5) (1).png" id="3_5ixxa"]
+[ext_resource type="Texture2D" uid="uid://blo3ur45njqq7" path="res://Acets/asdwasd.png" id="3_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://cxj6nxxtavwo6" path="res://Acets/spritesheet.png" id="3_dewec"]
 [ext_resource type="Texture2D" uid="uid://bhtwm17g68hla" path="res://Acets/image-removebg-preview (13).png" id="4_dewec"]
 
@@ -29,6 +29,10 @@ region = Rect2(247, 252, 247, 252)
 [sub_resource type="AtlasTexture" id="AtlasTexture_megsn"]
 atlas = ExtResource("2_dewec")
 region = Rect2(247, 0, 247, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksbbd"]
+atlas = ExtResource("3_5ixxa")
+region = Rect2(0, 0, 250, 252)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_megsn"]
 animations = [{
@@ -62,7 +66,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_5ixxa")
+"texture": SubResource("AtlasTexture_ksbbd")
 }],
 "loop": true,
 "name": &"squat",
@@ -72,6 +76,10 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kyqiw"]
 radius = 3.0
 height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ixxa"]
+radius = 3.0
+height = 14.0
 
 [sub_resource type="Animation" id="Animation_kyqiw"]
 loop_mode = 1
@@ -449,7 +457,12 @@ sprite_frames = SubResource("SpriteFrames_megsn")
 animation = &"squat"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1277824255]
+visible = false
 shape = SubResource("CapsuleShape2D_kyqiw")
+
+[node name="squatcolls" type="CollisionShape2D" parent="." unique_id=139012131]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_5ixxa")
 
 [node name="CoyoteTime" type="Timer" parent="." unique_id=377678715 groups=["Player"]]
 wait_time = 0.12
