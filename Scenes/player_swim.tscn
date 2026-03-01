@@ -406,7 +406,7 @@ one_shot = true
 scale = Vector2(0.064, 0.064)
 sprite_frames = SubResource("SpriteFrames_0np65")
 animation = &"swim"
-frame_progress = 0.30303612
+frame_progress = 0.7034259
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1460188480 groups=["Player"]]
 position = Vector2(0, -0.5)
@@ -435,3 +435,4 @@ speed_scale = 8.0
 
 [connection signal="timeout" from="No_damage_time" to="." method="_on_no_damage_time_timeout"]
 [connection signal="timeout" from="Hit_Cooldown" to="." method="_on_hit_cooldown_timeout"]
+[connection signal="body_entered" from="Attack" to="." method="_on_attack_body_entered"]
