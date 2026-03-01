@@ -6,12 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://da8cqaqdiocaf" path="res://Acets/health_back.png" id="3_tjp4o"]
 [ext_resource type="Texture2D" uid="uid://6w40ogj4oly" path="res://Acets/image-removebg-preview (7).png" id="4_ii6su"]
 [ext_resource type="PackedScene" uid="uid://dq80h78q5t2n6" path="res://Scenes/Instakill.tscn" id="6_n3yln"]
-[ext_resource type="Script" uid="uid://u7xeintr8ojd" path="res://Scenes/health.gd" id="6_o5f8d"]
-[ext_resource type="Script" uid="uid://bwyvx6s22k2xo" path="res://Scenes/timer.gd" id="7_oiscc"]
+[ext_resource type="Script" path="res://Scenes/health.gd" id="6_o5f8d"]
+[ext_resource type="Script" path="res://Scenes/timer.gd" id="7_oiscc"]
 [ext_resource type="PackedScene" uid="uid://dpq1d12mj6kr" path="res://Scenes/spike.tscn" id="7_yv417"]
 [ext_resource type="PackedScene" uid="uid://cknosgd186yyl" path="res://Scenes/damage.tscn" id="8_peten"]
 [ext_resource type="PackedScene" uid="uid://ckckammpbk7wo" path="res://Scenes/Squid.tscn" id="9_peten"]
-[ext_resource type="Script" path="res://Scenes/mini_boss.gd" id="10_dcqd4"]
+[ext_resource type="Script" uid="uid://t2g7oodrr546" path="res://Scenes/mini_boss.gd" id="10_dcqd4"]
 [ext_resource type="Shader" uid="uid://ckgryjxyj7004" path="res://Scenes/Main.gdshader" id="11_rrwio"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rrwio"]
@@ -248,7 +248,7 @@ tile_map_data = PackedByteArray("AAALAAQABAAAAAIAAAAMAAQABAAAAAIAAAANAAQABAAAAAI
 tile_set = SubResource("TileSet_ii6su")
 
 [node name="Player" parent="." unique_id=2033505834 instance=ExtResource("2_8prnb")]
-position = Vector2(9, 95)
+position = Vector2(1698.439, 55.078644)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1315471370]
 zoom = Vector2(5.5, 5.5)

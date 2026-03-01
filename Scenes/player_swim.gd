@@ -56,15 +56,11 @@ func _process(_delta: float) -> void:
 			$Hit_Cooldown.start()
 
 func _physics_process(_delta: float) -> void:
-	var speed        := velocity.length()
-	# Get direction to mouse
+	var speed_mod := 1
 	var direction := get_global_mouse_position() - global_position
-	# Move only if mouse is far enough away to prevent shaking
-	if direction.length() > 5:
-		velocity = direction.normalized() * speed
-	else:
-		velocity = Vector2.ZERO
-		
+
+	velocity = direction.normalized() * SPEED * speed_mod
+	look_at(get_global_mouse_position())
 	move_and_slide()
 	
 	if is_on_floor() and !was_on_floor:
@@ -102,6 +98,7 @@ func take_damage() -> void:
 	if Global.Health <= 0: # dead
 		Global.add_death()
 		get_tree().call_deferred("reload_current_scene")
+		Global.Health = 8
 
 func _on_air_body_entered(body: CharacterBody2D) -> void:
 	if body.is_in_group("Player"):
