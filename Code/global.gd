@@ -6,6 +6,7 @@ var config = ConfigFile.new()
 var master_volume: float = 0.0
 var totaldeaths: int = 0
 var Health := 8
+var kill := false
 
 func _ready():
 	config.load(SAVE_PATH)
