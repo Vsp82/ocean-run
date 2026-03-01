@@ -92,7 +92,7 @@ anim_offset_max = 1.0
 turbulence_noise_speed_random = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
-size = Vector2(12.75, 8)
+size = Vector2(19, 8)
 
 [sub_resource type="Animation" id="Animation_dewec"]
 resource_name = "Attack"
@@ -212,7 +212,7 @@ position = Vector2(-8.940697e-07, 7.1525574e-07)
 scale = Vector2(0.06451613, 0.063745014)
 sprite_frames = SubResource("SpriteFrames_megsn")
 animation = &"Walk"
-frame_progress = 0.23940249
+frame_progress = 0.19473504
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1277824255]
 shape = SubResource("CapsuleShape2D_kyqiw")
@@ -245,7 +245,7 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=85823970 groups=["Player"]]
-position = Vector2(9.625, 0)
+position = Vector2(6.5, 0)
 shape = SubResource("RectangleShape2D_gntrk")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1055349734]

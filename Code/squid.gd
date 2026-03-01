@@ -52,9 +52,7 @@ func _on_timer_2_timeout() -> void:
 
 
 func _on_hitbox_body_entered(body) -> void:
-	print("hiit")
 	if body.is_in_group("Player"):
-		print("huhu")
 		Health -=1
 		if Health <= 0:
 			$".".hide()
