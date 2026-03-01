@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var Health := 4
+@export var Health := 8
 @onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
 
@@ -52,10 +52,7 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if velocity.y > 0:
-		if water:
-			gravity_modifier = 0.5
-		else:
-			gravity_modifier = 1
+		gravity_modifier = 0.2
 	elif velocity.y < 0:
 		gravity_modifier = 1
 	# Add the gravity.
@@ -135,7 +132,7 @@ func take_damage() -> void:
 	if Global.rumble_enabled:
 		Input.start_joy_vibration(0, 0.8, 0.3, 0.4)
 	No_damage_time_active = true
-	Health -= 1
+	Health -= 2
 	$AnimationPlayer.play("playeflash")
 	No_damage_time.start()
 	print(Health)
@@ -170,7 +167,6 @@ func wait(seconds: float):
 
 func _on_attack_body_entered(body) -> void:
 	if body.is_in_group("Enemy"):
-		print("Enemy hit")
 		body.Health -= 1
 
 func _on_hit_cooldown_timeout() -> void:

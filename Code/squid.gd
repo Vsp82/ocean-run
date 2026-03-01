@@ -10,6 +10,7 @@ const ACCEL = 2000
 var moove := 5
 var time := true
 var vision := false
+var immune = false
 
 func _process(_delta: float) -> void:
 	if Health <= 0:
@@ -19,6 +20,7 @@ func _process(_delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	var direction = to_local(nav_agent.get_next_path_position()).normalized()
 	if vision and time:
+		immune = true
 		if direction.x < 0:
 			$Sprite2D.flip_h = true
 		elif direction.x > 0:
@@ -29,6 +31,7 @@ func _physics_process(_delta: float) -> void:
 		if moove == 0:
 			moove = 5
 			time = false
+			immune = false
 			$Timer2.start()
 
 func makepath() -> void:
