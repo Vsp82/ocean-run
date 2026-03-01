@@ -113,7 +113,7 @@ zoom = Vector2(5.5, 5.5)
 position = Vector2(263.58743, 66.189514)
 player = NodePath("../Player_swim")
 
-[node name="Damage" parent="Boss" unique_id=254023939 instance=ExtResource("7_bnrw0")]
+[node name="Damage" parent="Boss" unique_id=254023939 groups=["Enemy"] instance=ExtResource("7_bnrw0")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boss/Damage" unique_id=1739401846]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boss/Damage" unique_id=1739401846 groups=["Enemy"]]
 shape = SubResource("CapsuleShape2D_djbyv")

@@ -143,6 +143,7 @@ func wait(seconds: float):
 func _on_attack_body_entered(body) -> void:
 	if body.is_in_group("Enemy"):
 		body.Health -= 1
+		print(body.Health)
 
 func _on_hit_cooldown_timeout() -> void:
 	hit = true

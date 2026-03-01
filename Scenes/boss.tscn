@@ -43,8 +43,8 @@ debug_color = Color(0.52268845, 0.4351017, 0.9580557, 0.41960785)
 [node name="Timer2" type="Timer" parent="." unique_id=1496229581]
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1359142754 groups=["Enemy"]]
-collision_layer = 16
-collision_mask = 16
+collision_layer = 24
+collision_mask = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=194743672 groups=["Enemy"]]
 shape = SubResource("CapsuleShape2D_cxrok")

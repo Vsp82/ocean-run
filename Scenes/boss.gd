@@ -1,6 +1,6 @@
 extends CharacterBody2D
 const ACCEL = 2
-@export var Health = 1
+@export var Health = 5
 @export var player: Node2D
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 var moove := 5
@@ -40,7 +40,7 @@ func _on_timer_timeout() -> void:
 func _on_vision_body_entered(body: CharacterBody2D) -> void:
 	if body.is_in_group("Player"):
 		vision = true
-		speed = 350
+		speed = 100
 
 func wait(seconds: float):
 	await get_tree().create_timer(seconds).timeout
@@ -52,6 +52,7 @@ func _on_hitbox_body_entered(body) -> void:
 	if body.is_in_group("Player"):
 		Health -= 1
 		if Health <= 0:
+			print("kill")
 			$".".hide()
 			queue_free()
 
