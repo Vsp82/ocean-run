@@ -1,0 +1,236 @@
+[gd_scene format=3 uid="uid://pjvrrjmwwy7v"]
+
+[ext_resource type="Texture2D" uid="uid://cxj6nxxtavwo6" path="res://Acets/spritesheet.png" id="1_41lpl"]
+[ext_resource type="Script" uid="uid://fu0o3shpod8d" path="res://Scenes/player_swim.gd" id="1_t7jic"]
+[ext_resource type="Texture2D" uid="uid://bhvvnngdsu4t0" path="res://Acets/health.png" id="2_4tpyi"]
+[ext_resource type="Texture2D" uid="uid://bnplw1knnh3om" path="res://Acets/image-removebg-preview (5).png" id="3_4tpyi"]
+
+[sub_resource type="Animation" id="Animation_kyqiw"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_gntrk"]
+resource_name = "playeflash"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t7jic"]
+_data = {
+&"RESET": SubResource("Animation_kyqiw"),
+&"playeflash": SubResource("Animation_gntrk")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hm7aj"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_thlhe"]
+lifetime_randomness = 1.0
+gravity = Vector3(0, -12.5, 0)
+scale_min = 0.02
+scale_max = 0.02
+anim_offset_max = 1.0
+turbulence_noise_speed_random = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x6fon"]
+size = Vector2(19, 8)
+
+[sub_resource type="Animation" id="Animation_dewec"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Attack:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.001, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.001, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Attack:monitorable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.001, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Attack:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.001, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_5ixxa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Attack:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Attack:monitorable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Attack:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0np65"]
+_data = {
+&"Attack": SubResource("Animation_dewec"),
+&"RESET": SubResource("Animation_5ixxa")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7jic"]
+atlas = ExtResource("3_4tpyi")
+region = Rect2(0, 0, 249, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm7aj"]
+atlas = ExtResource("3_4tpyi")
+region = Rect2(0, 250, 249, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thlhe"]
+atlas = ExtResource("3_4tpyi")
+region = Rect2(249, 0, 249, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6fon"]
+atlas = ExtResource("3_4tpyi")
+region = Rect2(0, 250, 249, 250)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0np65"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7jic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm7aj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thlhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6fon")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljphq"]
+size = Vector2(16, 7)
+
+[node name="Player_swim" type="CharacterBody2D" unique_id=2126484536]
+script = ExtResource("1_t7jic")
+
+[node name="No_damage_time" type="Timer" parent="." unique_id=993951481]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=77966066]
+libraries/ = SubResource("AnimationLibrary_t7jic")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=385028768]
+z_index = -1
+material = SubResource("CanvasItemMaterial_hm7aj")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_41lpl")
+explosiveness = 0.27
+randomness = 0.5
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_thlhe")
+
+[node name="Attack" type="Area2D" parent="." unique_id=2009199161 groups=["Player"]]
+visible = false
+collision_layer = 24
+collision_mask = 24
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=113828408 groups=["Player"]]
+position = Vector2(6.5, 0)
+shape = SubResource("RectangleShape2D_x6fon")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=342810343]
+visible = false
+position = Vector2(9.5, 4.7683716e-07)
+scale = Vector2(0.0066258917, 0.03333334)
+texture = ExtResource("2_4tpyi")
+
+[node name="Attack2" type="AnimationPlayer" parent="." unique_id=1337832190]
+libraries/ = SubResource("AnimationLibrary_0np65")
+speed_scale = 8.0
+
+[node name="Hit_Cooldown" type="Timer" parent="." unique_id=317188357]
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=736801335]
+scale = Vector2(0.064, 0.064)
+sprite_frames = SubResource("SpriteFrames_0np65")
+animation = &"swim"
+frame_progress = 0.7258788
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1460188480]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_ljphq")
