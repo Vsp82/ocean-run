@@ -1,16 +1,16 @@
 [gd_scene format=4 uid="uid://bo8560d0bkk65"]
 
-[ext_resource type="Script" path="res://Code/better_main.gd" id="1_ii6su"]
+[ext_resource type="Script" uid="uid://b2davsfjlnlo" path="res://Code/better_main.gd" id="1_ii6su"]
 [ext_resource type="PackedScene" uid="uid://b7nl15vlkvu0w" path="res://Scenes/Player.tscn" id="2_8prnb"]
 [ext_resource type="Texture2D" uid="uid://bi4nrh6u6u01h" path="res://Acets/tiles2.png" id="2_dcqd4"]
 [ext_resource type="Texture2D" uid="uid://da8cqaqdiocaf" path="res://Acets/health_back.png" id="3_tjp4o"]
 [ext_resource type="Texture2D" uid="uid://6w40ogj4oly" path="res://Acets/image-removebg-preview (7).png" id="4_ii6su"]
 [ext_resource type="PackedScene" uid="uid://dq80h78q5t2n6" path="res://Scenes/Instakill.tscn" id="6_n3yln"]
-[ext_resource type="Script" uid="uid://bwyvx6s22k2xo" path="res://Scenes/timer.gd" id="7_oiscc"]
+[ext_resource type="Script" path="res://Scenes/timer.gd" id="7_oiscc"]
 [ext_resource type="PackedScene" uid="uid://dpq1d12mj6kr" path="res://Scenes/spike.tscn" id="7_yv417"]
 [ext_resource type="PackedScene" uid="uid://cknosgd186yyl" path="res://Scenes/damage.tscn" id="8_peten"]
 [ext_resource type="PackedScene" uid="uid://ckckammpbk7wo" path="res://Scenes/Squid.tscn" id="9_peten"]
-[ext_resource type="Script" path="res://Scenes/mini_boss.gd" id="10_dcqd4"]
+[ext_resource type="Script" uid="uid://t2g7oodrr546" path="res://Scenes/mini_boss.gd" id="10_dcqd4"]
 [ext_resource type="Shader" uid="uid://ckgryjxyj7004" path="res://Scenes/Main.gdshader" id="11_rrwio"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rrwio"]
@@ -43,7 +43,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-160, -160, 160, -160, 160, 160, -160, 160)])
 agent_radius = 0.0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dcqd4"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lbt7p"]
 texture = ExtResource("2_dcqd4")
 texture_region_size = Vector2i(320, 320)
 0:0/0 = 0
@@ -60,17 +60,15 @@ texture_region_size = Vector2i(320, 320)
 [sub_resource type="TileSet" id="TileSet_dcqd4"]
 tile_size = Vector2i(320, 320)
 navigation_layer_0/layers = 1
-sources/1 = SubResource("TileSetAtlasSource_dcqd4")
+sources/1 = SubResource("TileSetAtlasSource_lbt7p")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rrwio"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o5f8d"]
 texture = ExtResource("2_dcqd4")
 texture_region_size = Vector2i(320, 320)
-
 20:0/0 = 0
 20:20/0 = 0
 0:20/0 = 0
 0:40/0 = 0
-
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-160, -160, 160, -160, 160, 160, -160, 160)
 1:0/0 = 0
@@ -82,7 +80,7 @@ texture_region_size = Vector2i(320, 320)
 [sub_resource type="TileSet" id="TileSet_ii6su"]
 tile_size = Vector2i(320, 320)
 physics_layer_0/collision_layer = 1
-sources/4 = SubResource("TileSetAtlasSource_rrwio")
+sources/4 = SubResource("TileSetAtlasSource_o5f8d")
 
 [sub_resource type="Shader" id="Shader_16hvj"]
 code = "shader_type canvas_item;
@@ -238,11 +236,7 @@ tile_map_data = PackedByteArray("AAALAAQABAAAAAIAAAAMAAQABAAAAAIAAAANAAQABAAAAAI
 tile_set = SubResource("TileSet_ii6su")
 
 [node name="Player" parent="." unique_id=2033505834 instance=ExtResource("2_8prnb")]
-
-position = Vector2(1695.1489, 52.734627)
-
 position = Vector2(9, 95)
-
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1315471370]
 zoom = Vector2(5.5, 5.5)
