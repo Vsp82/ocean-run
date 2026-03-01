@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cknosgd186yyl" path="res://Scenes/damage.tscn" id="7_bnrw0"]
 [ext_resource type="Script" path="res://Scenes/health.gd" id="9_mx74l"]
 [ext_resource type="Script" uid="uid://bwyvx6s22k2xo" path="res://Scenes/timer.gd" id="10_kk2qi"]
+
 [ext_resource type="Script" path="res://Scenes/score.gd" id="11_mx74l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bnrw0"]
@@ -22,6 +23,11 @@ shadow_offset = Vector2(10.81, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_djbyv"]
 font_size = 77
+
+
+[ext_resource type="PackedScene" uid="uid://cjtwg7fgolf6y" path="res://endscene.tscn" id="10_w6sin"]
+[ext_resource type="Script" uid="uid://cvkdui4tqb7a6" path="res://Scenes/score.gd" id="11_mx74l"]
+
 
 [sub_resource type="Shader" id="Shader_kk2qi"]
 code = "shader_type canvas_item;
@@ -231,6 +237,7 @@ gradient = SubResource("Gradient_jw32o")
 script = ExtResource("1_q04ek")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=373282109]
+
 visible = false
 
 [node name="Health" type="TextureProgressBar" parent="CanvasLayer" unique_id=393512959]
@@ -272,6 +279,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Health2" type="TextureProgressBar" parent="CanvasLayer" unique_id=1438421408]
+
+
+[node name="Health" type="TextureProgressBar" parent="CanvasLayer" unique_id=1438421408]
+
 offset_left = -177.00005
 offset_top = -110.00001
 offset_right = 322.99994
@@ -297,7 +308,7 @@ stretch = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(499, 144)
-render_target_update_mode = 0
+render_target_update_mode = 4
 
 [node name="timer" type="Label" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=365067384]
 offset_left = 130.0
@@ -349,6 +360,9 @@ zoom = Vector2(5.5, 5.5)
 position = Vector2(263.58743, 66.189514)
 player = NodePath("../Player_swim")
 
+endscene = ExtResource("10_w6sin")
+
+
 [node name="Damage" parent="Boss" unique_id=254023939 groups=["Enemy"] instance=ExtResource("7_bnrw0")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boss/Damage" unique_id=1739401846 groups=["Enemy"]]
@@ -370,4 +384,7 @@ centered = false
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=82598990]
 visible = false
 
+
 [connection signal="value_changed" from="CanvasLayer/Health" to="CanvasLayer/Health" method="_on_value_changed"]
+
+

@@ -4,8 +4,8 @@
 [ext_resource type="Shader" uid="uid://cb5qqpbgjmup8" path="res://ocean.gdshader" id="1_n45e2"]
 [ext_resource type="Theme" uid="uid://c2ixy34eh3ihw" path="res://buttontheme.tres" id="2_opfnp"]
 [ext_resource type="Script" uid="uid://c25w8u3t5e27e" path="res://Code/play.gd" id="3_cp0ys"]
-[ext_resource type="PackedScene" uid="uid://ve5tgysnbrka" path="res://Scenes/better_main.tscn" id="5_5egv6"]
-[ext_resource type="Script" uid="uid://b5y8n1087xxl" path="res://Code/exit.gd" id="5_trj04"]
+[ext_resource type="PackedScene" uid="uid://bo8560d0bkk65" path="res://Scenes/better_main.tscn" id="5_5egv6"]
+[ext_resource type="Script" path="res://Code/exit.gd" id="5_trj04"]
 [ext_resource type="Texture2D" uid="uid://ci80ns4folm70" path="res://Acets/WhatsApp_Image_2026-02-28_at_16.21.14-removebg-preview (2).png" id="7_5egv6"]
 [ext_resource type="Script" uid="uid://clxyjnx6rn3l" path="res://Code/v_slider.gd" id="7_yhxw7"]
 [ext_resource type="Texture2D" uid="uid://cxpwb6678e7qb" path="res://Acets/Screenshot_2026-02-28_165850-removebg-preview.png" id="8_vtepg"]
@@ -26,7 +26,7 @@ shader_parameter/foam_color = Color(0.9, 0.95, 1, 1)
 shader_parameter/overlay_color = Color(0, 0, 0, 1)
 shader_parameter/overlay_strength = 0.390000018525
 
-[sub_resource type="Shader" id="Shader_16hvj"]
+[sub_resource type="Shader" id="Shader_5egv6"]
 code = "shader_type canvas_item;
 
 uniform float cell_size = 32.0;
@@ -110,7 +110,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fu7sn"]
-shader = SubResource("Shader_16hvj")
+shader = SubResource("Shader_5egv6")
 shader_parameter/cell_size = 32.0
 shader_parameter/direction = Vector2(1, 0)
 shader_parameter/speed = 40.0

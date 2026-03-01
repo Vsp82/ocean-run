@@ -2,6 +2,7 @@ extends CharacterBody2D
 const ACCEL = 2
 @export var Health = 5
 @export var player: Node2D
+@export var endscene: PackedScene
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 var moove := 5
 var time := true
@@ -54,10 +55,7 @@ func _on_hitbox_body_entered(body) -> void:
 		print("hit")
 		if Health <= 0:
 			print("kill")
-			$"../CanvasLayer/Label".show()
-			$"../CanvasLayer/ColorRect".show()
-			$".".hide()
-			queue_free()
+			get_tree().change_scene_to_packed(endscene)
 
 func _on_vision_body_exited(body: CharacterBody2D) -> void:
 	if body.is_in_group("Player"):
