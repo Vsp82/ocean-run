@@ -93,7 +93,7 @@ func _physics_process(delta: float) -> void:
 			CoyoteTime.stop()
 	# In _physics_process, replace the zoom block with this:
 	var speed        := velocity.length()
-	var speed_factor: float = clamp(speed / ZOOM_SPEED_REF, 0.0, 1.0)
+#	var speed_factor: float = clamp(speed / ZOOM_SPEED_REF, 0.0, 1.0)
 #	var target_zoom  := ZOOM_DEFAULT.lerp(ZOOM_MAX_OUT, speed_factor)
 
 	# Asymmetric lerp: fast zoom-out, slow zoom-in
@@ -162,7 +162,7 @@ func take_damage() -> void:
 	if Global.rumble_enabled:
 		Input.start_joy_vibration(0, 0.8, 0.3, 0.4)
 	No_damage_time_active = true
-	Health -= 1
+	Health -= 2
 	$AnimationPlayer.play("asdasd")
 	No_damage_time.start()
 	if Health <= 0: # dead
