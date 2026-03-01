@@ -51,8 +51,11 @@ func _on_timer_2_timeout() -> void:
 func _on_hitbox_body_entered(body) -> void:
 	if body.is_in_group("Player"):
 		Health -= 1
+		print("hit")
 		if Health <= 0:
 			print("kill")
+			$"../CanvasLayer/Label".show()
+			$"../CanvasLayer/ColorRect".show()
 			$".".hide()
 			queue_free()
 
