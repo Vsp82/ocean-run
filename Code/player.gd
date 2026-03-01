@@ -23,6 +23,9 @@ const SPEED := 120.0
 const ACCEL := 1500.0
 const FRICTION := 1500.0
 const JUMP_VELOCITY := -250.0
+const WATER_JUMP_VELOCITY := -140.0
+const WATER_SPEED := 70.0
+const WATER_FRICTION := 400.0
 
 const explode_scenes := "res://Scenes/explode_effect.tscn"
 const explode_up_scenes := "res://Scenes/explode_up_effect.tscn"
@@ -33,7 +36,12 @@ var airtime := 0.0
 
 @onready var instakill := $"../Instakill"
 
-const DEFZOOM := [6.0, 6.0]
+# Tune these
+const ZOOM_DEFAULT    := Vector2(6.0, 6.0)
+const ZOOM_MAX_OUT    := Vector2(4.0, 4.0)   # how far it zooms out at full speed
+const ZOOM_SPEED_REF  := 200.0               # speed at which max zoom is reached
+const ZOOM_OUT_SPEED  := 6.0                 # how fast it zooms out
+const ZOOM_IN_SPEED   := 2.0                 # how slowly it recovers (feels weightier)
 
 
 func _process(_delta: float) -> void:
@@ -51,10 +59,22 @@ func _process(_delta: float) -> void:
 			$Hit_Cooldown.start()
 
 func _physics_process(delta: float) -> void:
+	var current_speed    := WATER_SPEED    if water else SPEED
+	var current_friction := WATER_FRICTION if water else FRICTION
 	if velocity.y > 0:
+
 		gravity_modifier = 0.2
+
+		if water:
+			gravity_modifier = 0.25   # slow the fall
+		else:
+			gravity_modifier = 1.0
+
 	elif velocity.y < 0:
-		gravity_modifier = 1
+		if water:
+			gravity_modifier = 0.45   # also resist rising
+		else:
+			gravity_modifier = 1.0
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
@@ -70,11 +90,16 @@ func _physics_process(delta: float) -> void:
 		if Coyote_time_active:
 			Coyote_time_active = false
 			CoyoteTime.stop()
-	#var speed_factor = clamp(airtime / 0.75, 0.0, 0.5)  # 1.5 = seconds to reach max zoom out
-	#var target_zoom = Vector2(6.0, 6.0) - Vector2(2.0, 2.0) * speed_factor
-	#$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, 5.0 * delta)
-	if Input.is_action_just_pressed("Jump") and (!CoyoteTime.is_stopped() or is_on_floor() ):
-		velocity.y = JUMP_VELOCITY
+	# In _physics_process, replace the zoom block with this:
+	var speed        := velocity.length()
+	var speed_factor: float = clamp(speed / ZOOM_SPEED_REF, 0.0, 1.0)
+	var target_zoom  := ZOOM_DEFAULT.lerp(ZOOM_MAX_OUT, speed_factor)
+
+	# Asymmetric lerp: fast zoom-out, slow zoom-in
+	var lerp_speed := ZOOM_OUT_SPEED if speed_factor > 0.01 else ZOOM_IN_SPEED
+	$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, lerp_speed * delta)
+	if Input.is_action_just_pressed("Jump") and (!CoyoteTime.is_stopped() or is_on_floor()):
+		velocity.y = WATER_JUMP_VELOCITY if water else JUMP_VELOCITY
 		CoyoteTime.stop()
 		Coyote_time_active = true
 
@@ -92,11 +117,11 @@ func _physics_process(delta: float) -> void:
 		$Sprite2D2.position = Vector2(11, 0)
 	if direction:
 		# moving
-		velocity.x = move_toward(velocity.x, direction * SPEED, ACCEL * delta)
+		velocity.x = move_toward(velocity.x, direction * current_speed, ACCEL * delta)
 		$AnimatedSprite2D.play("Walk")
 		$GPUParticles2D.emitting = true
 	else:
-		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+		velocity.x = move_toward(velocity.x, 0, current_friction * delta)
 		$AnimatedSprite2D.play("Idle")
 		$GPUParticles2D.emitting = false
 		
@@ -135,7 +160,6 @@ func take_damage() -> void:
 	Health -= 2
 	$AnimationPlayer.play("playeflash")
 	No_damage_time.start()
-	print(Health)
 	if Health <= 0: # dead
 		Global.add_death()
 		get_tree().call_deferred("reload_current_scene")
@@ -158,7 +182,6 @@ func _ready() -> void:
 	$AnimatedSprite2D.modulate.a = 1.0
 
 func Attack():
-	print("attack")
 	$Attack2.play("Attack")
 
 func wait(seconds: float):
