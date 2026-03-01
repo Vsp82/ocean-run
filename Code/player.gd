@@ -89,19 +89,21 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("Left", "Right")
 	
 	if direction < 0:
-		$Sprite2D.flip_h = true
+		$AnimatedSprite2D.flip_h = true
 		$Attack.rotation_degrees = 180
 		$Sprite2D2.position = Vector2(-11, 0)
 	elif direction > 0:
-		$Sprite2D.flip_h = false
+		$AnimatedSprite2D.flip_h = false
 		$Attack.rotation_degrees = 0
 		$Sprite2D2.position = Vector2(11, 0)
 	if direction:
 		# moving
 		velocity.x = move_toward(velocity.x, direction * SPEED, ACCEL * delta)
+		$AnimatedSprite2D.play("Walk")
 		$GPUParticles2D.emitting = true
 	else:
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+		$AnimatedSprite2D.play("Idle")
 		$GPUParticles2D.emitting = false
 		
 
@@ -156,11 +158,11 @@ func _on_air_body_exited(body: CharacterBody2D) -> void:
 func _on_no_damage_time_timeout() -> void:
 	No_damage_time_active = false
 	$AnimationPlayer.stop()
-	$Sprite2D.modulate.a = 1.0  # make sure player is fully visible again
+	$AnimatedSprite2D.modulate.a = 1.0  # make sure player is fully visible again
 
 func _ready() -> void:
 	# default
-	$Sprite2D.modulate.a = 1.0
+	$AnimatedSprite2D.modulate.a = 1.0
 
 func Attack():
 	print("attack")
