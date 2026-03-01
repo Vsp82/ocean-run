@@ -150,10 +150,61 @@ position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_db12a")
 debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
 
+[node name="Spike4" parent="spike" unique_id=442997692 instance=ExtResource("6_d407d")]
+position = Vector2(254, -45)
+
+[node name="Damage" parent="spike/Spike4" unique_id=1851045438 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spike/Spike4/Damage" unique_id=614019001]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_db12a")
+debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
+
+[node name="Spike5" parent="spike" unique_id=1107787789 instance=ExtResource("6_d407d")]
+position = Vector2(485, -30)
+
+[node name="Damage" parent="spike/Spike5" unique_id=1935531807 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spike/Spike5/Damage" unique_id=456989934]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_db12a")
+debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
+
+[node name="Spike6" parent="spike" unique_id=985639096 instance=ExtResource("6_d407d")]
+position = Vector2(488, -76)
+rotation = -3.1415927
+
+[node name="Damage" parent="spike/Spike6" unique_id=1211016754 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spike/Spike6/Damage" unique_id=705972953]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_db12a")
+debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
+
+[node name="Spike7" parent="spike" unique_id=246335427 instance=ExtResource("6_d407d")]
+position = Vector2(485, 30)
+
+[node name="Damage" parent="spike/Spike7" unique_id=1534715187 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spike/Spike7/Damage" unique_id=1142732511]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_db12a")
+debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
+
+[node name="Spike8" parent="spike" unique_id=598971532 instance=ExtResource("6_d407d")]
+position = Vector2(485, 0)
+rotation = -3.1415927
+
+[node name="Damage" parent="spike/Spike8" unique_id=320892915 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spike/Spike8/Damage" unique_id=99839695]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_db12a")
+debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
+
 [node name="Squid" type="Node" parent="." unique_id=1398379797]
 
 [node name="Squid" parent="Squid" unique_id=436895269 node_paths=PackedStringArray("player") instance=ExtResource("5_phcop")]
-visible = false
 position = Vector2(216.4376, 61.271774)
 player = NodePath("../../Player_swim")
 
