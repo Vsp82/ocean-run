@@ -52,6 +52,7 @@ frame_progress = 0.191994
 shape = SubResource("CapsuleShape2D_s4tij")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=254694592]
+simplify_path = true
 
 [node name="Timer" type="Timer" parent="." unique_id=1774085912]
 wait_time = 0.1
