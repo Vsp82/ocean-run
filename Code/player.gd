@@ -18,6 +18,7 @@ var water := true
 var was_on_floor := false
 var text := 0
 var hit := true
+var r = false
 
 const SPEED := 120.0
 const ACCEL := 1500.0
@@ -110,11 +111,11 @@ func _physics_process(delta: float) -> void:
 	if direction < 0:
 		$AnimatedSprite2D.flip_h = true
 		$Attack.rotation_degrees = 180
-		$Sprite2D2.position = Vector2(-11, 0)
+		r = true
 	elif direction > 0:
 		$AnimatedSprite2D.flip_h = false
 		$Attack.rotation_degrees = 0
-		$Sprite2D2.position = Vector2(11, 0)
+		r = false
 	if direction:
 		# moving
 		velocity.x = move_toward(velocity.x, direction * current_speed, ACCEL * delta)
@@ -182,7 +183,10 @@ func _ready() -> void:
 	$AnimatedSprite2D.modulate.a = 1.0
 
 func Attack():
-	$Attack2.play("Attack")
+	if r:
+		$Attack2.play("Attack left")
+	else:
+		$Attack2.play("Attack")
 
 func wait(seconds: float):
 	await get_tree().create_timer(seconds).timeout

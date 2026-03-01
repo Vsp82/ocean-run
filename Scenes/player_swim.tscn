@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://fu0o3shpod8d" path="res://Scenes/player_swim.gd" id="1_t7jic"]
 [ext_resource type="Texture2D" uid="uid://bhvvnngdsu4t0" path="res://Acets/health.png" id="2_4tpyi"]
 [ext_resource type="Texture2D" uid="uid://bnplw1knnh3om" path="res://Acets/image-removebg-preview (5).png" id="3_4tpyi"]
+[ext_resource type="Script" uid="uid://b4emfulr0cu3l" path="res://Scenes/attack.gd" id="3_hm7aj"]
 
 [sub_resource type="Animation" id="Animation_kyqiw"]
 length = 0.001
@@ -207,6 +208,7 @@ collision_layer = 24
 collision_mask = 24
 monitoring = false
 monitorable = false
+script = ExtResource("3_hm7aj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=113828408 groups=["Player"]]
 position = Vector2(6.5, 0)
@@ -229,7 +231,7 @@ one_shot = true
 scale = Vector2(0.064, 0.064)
 sprite_frames = SubResource("SpriteFrames_0np65")
 animation = &"swim"
-frame_progress = 0.7258788
+frame_progress = 0.25770298
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1460188480]
 position = Vector2(0, -0.5)

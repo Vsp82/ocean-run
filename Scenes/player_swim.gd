@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 @export var Health := 8
-@onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
 
 @onready var explode_scene = preload(explode_scenes)
@@ -33,9 +32,6 @@ const text1 := "res://Acets/image-removebg-preview.png"
 const text2 := "res://Acets/WhatsApp_Image_2026-02-28_at_21.26.27-removebg-preview.png"
 
 var airtime := 0.0
-var dir_r 
-
-@onready var instakill := $"../Instakill"
 
 # Tune these
 const ZOOM_DEFAULT    := Vector2(6.0, 6.0)
@@ -46,7 +42,7 @@ const ZOOM_IN_SPEED   := 2.0                 # how slowly it recovers (feels wei
 
 
 func _process(_delta: float) -> void:
-
+	
 	cHealt.value = Health
 	if text == 0:
 		$GPUParticles2D.texture = text11
@@ -60,7 +56,7 @@ func _process(_delta: float) -> void:
 			hit = false
 			$Hit_Cooldown.start()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var speed        := velocity.length()
 	# Get direction to mouse
 	var direction := get_global_mouse_position() - global_position
@@ -70,9 +66,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = Vector2.ZERO
 		
-	move_and_slide()
-		
-
 	move_and_slide()
 	
 	if is_on_floor() and !was_on_floor:
