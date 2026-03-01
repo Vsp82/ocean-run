@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://f6as148ujfhx"]
+
+[ext_resource type="PackedScene" uid="uid://pjvrrjmwwy7v" path="res://Scenes/player_swim.tscn" id="1_nya0h"]
+[ext_resource type="Texture2D" uid="uid://da8cqaqdiocaf" path="res://Acets/health_back.png" id="2_l2x4t"]
+[ext_resource type="Texture2D" uid="uid://6w40ogj4oly" path="res://Acets/image-removebg-preview (7).png" id="3_pbtnt"]
+
+[node name="Area 2" type="Node2D" unique_id=487707444]
+
+[node name="Player_swim" parent="." unique_id=2126484536 instance=ExtResource("1_nya0h")]
+
+[node name="Camera2D" type="Camera2D" parent="Player_swim" unique_id=1469977097]
+zoom = Vector2(5.5, 5.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1798189137]
+visible = false
+
+[node name="Health" type="TextureProgressBar" parent="CanvasLayer" unique_id=1155515026]
+offset_left = -19.0
+offset_top = -191.0
+offset_right = 481.0
+offset_bottom = 308.0
+max_value = 9.0
+value = 8.0
+texture_under = ExtResource("2_l2x4t")
+texture_progress = ExtResource("3_pbtnt")

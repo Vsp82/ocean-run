@@ -1,42 +1,42 @@
 [gd_scene format=3 uid="uid://b7nl15vlkvu0w"]
 
 [ext_resource type="Script" uid="uid://c3omqfnl4qasx" path="res://Code/player.gd" id="1_kyqiw"]
-[ext_resource type="Texture2D" uid="uid://dckrpuxxxhg0g" path="res://Acets/image-removebg-preview (1).png" id="2_dewec"]
+[ext_resource type="Texture2D" uid="uid://bl106bqd3h66o" path="res://image-removebg-preview (2).png" id="2_dewec"]
 [ext_resource type="Texture2D" uid="uid://cxj6nxxtavwo6" path="res://Acets/spritesheet.png" id="3_dewec"]
 [ext_resource type="Texture2D" uid="uid://bhvvnngdsu4t0" path="res://Acets/health.png" id="4_dewec"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dewec"]
-atlas = ExtResource("2_dewec")
-region = Rect2(0, 0, 248, 251)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_megsn"]
-atlas = ExtResource("2_dewec")
-region = Rect2(248, 251, 248, 251)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ixxa"]
 atlas = ExtResource("2_dewec")
-region = Rect2(0, 0, 248, 251)
+region = Rect2(0, 0, 247, 252)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
 atlas = ExtResource("2_dewec")
-region = Rect2(0, 251, 248, 251)
+region = Rect2(247, 252, 247, 252)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_52ee3"]
 atlas = ExtResource("2_dewec")
-region = Rect2(248, 0, 248, 251)
+region = Rect2(0, 0, 247, 252)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bhhdu"]
 atlas = ExtResource("2_dewec")
-region = Rect2(248, 251, 248, 251)
+region = Rect2(0, 252, 247, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_megsn"]
+atlas = ExtResource("2_dewec")
+region = Rect2(247, 0, 247, 252)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoq75"]
+atlas = ExtResource("2_dewec")
+region = Rect2(247, 252, 247, 252)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_megsn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dewec")
+"texture": SubResource("AtlasTexture_5ixxa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_megsn")
+"texture": SubResource("AtlasTexture_nn08x")
 }],
 "loop": true,
 "name": &"Idle",
@@ -44,16 +44,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5ixxa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nn08x")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_52ee3")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bhhdu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_megsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoq75")
 }],
 "loop": true,
 "name": &"Walk",
@@ -287,14 +287,6 @@ texture = ExtResource("4_dewec")
 [node name="Attack2" type="AnimationPlayer" parent="." unique_id=909476743]
 libraries/ = SubResource("AnimationLibrary_5ixxa")
 speed_scale = 8.0
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1366314714]
-zoom = Vector2(6, 6)
-limit_left = -80
-limit_top = -200
-limit_bottom = 112
-limit_smoothed = true
-position_smoothing_enabled = true
 
 [node name="spawnreset" type="Timer" parent="." unique_id=1483102353]
 wait_time = 2.0

@@ -61,69 +61,28 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	var current_speed    := WATER_SPEED    if water else SPEED
 	var current_friction := WATER_FRICTION if water else FRICTION
-	if velocity.y > 0:
-
-		gravity_modifier = 0.2
-
-		if water:
-			gravity_modifier = 0.25   # slow the fall
-		else:
-			gravity_modifier = 1.0
-
-	elif velocity.y < 0:
-		if water:
-			gravity_modifier = 0.45   # also resist rising
-		else:
-			gravity_modifier = 1.0
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
 		
-		# cam zoom on velocity
-		airtime += delta
-		
-		if !Coyote_time_active:
-			CoyoteTime.start()
-			Coyote_time_active = true
-	else:
-		airtime = 0
-		if Coyote_time_active:
-			Coyote_time_active = false
-			CoyoteTime.stop()
+
 	# In _physics_process, replace the zoom block with this:
 	var speed        := velocity.length()
 	var speed_factor: float = clamp(speed / ZOOM_SPEED_REF, 0.0, 1.0)
-#	var target_zoom  := ZOOM_DEFAULT.lerp(ZOOM_MAX_OUT, speed_factor)
-
-	# Asymmetric lerp: fast zoom-out, slow zoom-in
-	#var lerp_speed := ZOOM_OUT_SPEED if speed_factor > 0.01 else ZOOM_IN_SPEED
-	#$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, lerp_speed * delta)
-	if Input.is_action_just_pressed("Jump") and (!CoyoteTime.is_stopped() or is_on_floor()):
-		velocity.y = WATER_JUMP_VELOCITY if water else JUMP_VELOCITY
-		CoyoteTime.stop()
-		Coyote_time_active = true
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("Left", "Right")
 	
-	if direction < 0:
-		$AnimatedSprite2D.flip_h = true
-		$Attack.rotation_degrees = 180
-		$Sprite2D2.position = Vector2(-11, 0)
-	elif direction > 0:
-		$AnimatedSprite2D.flip_h = false
-		$Attack.rotation_degrees = 0
-		$Sprite2D2.position = Vector2(11, 0)
-	if direction:
-		# moving
-		velocity.x = move_toward(velocity.x, direction * current_speed, ACCEL * delta)
-		$AnimatedSprite2D.play("Walk")
-		$GPUParticles2D.emitting = true
+	# Get direction to mouse
+	var direction = get_global_mouse_position() - global_position
+	
+	# Move only if mouse is far enough away to prevent shaking
+	if direction.length() > 5:
+		velocity = direction.normalized() * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, current_friction * delta)
-		$AnimatedSprite2D.play("Idle")
-		$GPUParticles2D.emitting = false
+		velocity = Vector2.ZERO
+		
+	move_and_slide()
 		
 
 	move_and_slide()
@@ -157,8 +116,8 @@ func take_damage() -> void:
 	if Global.rumble_enabled:
 		Input.start_joy_vibration(0, 0.8, 0.3, 0.4)
 	No_damage_time_active = true
-	Health -= 1
-	$AnimationPlayer.play("asdasd")
+	Health -= 2
+	$AnimationPlayer.play("playeflash")
 	No_damage_time.start()
 	if Health <= 0: # dead
 		Global.add_death()

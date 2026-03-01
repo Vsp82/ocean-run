@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://cb5qqpbgjmup8" path="res://ocean.gdshader" id="1_n45e2"]
 [ext_resource type="Theme" uid="uid://c2ixy34eh3ihw" path="res://buttontheme.tres" id="2_opfnp"]
 [ext_resource type="Script" uid="uid://c25w8u3t5e27e" path="res://Code/play.gd" id="3_cp0ys"]
-[ext_resource type="PackedScene" uid="uid://ve5tgysnbrka" path="res://Scenes/better_main.tscn" id="5_5egv6"]
+[ext_resource type="PackedScene" uid="uid://b3elt20v7eww4" path="res://Scenes/Main.tscn" id="4_yhxw7"]
 [ext_resource type="Script" uid="uid://b5y8n1087xxl" path="res://Code/exit.gd" id="5_trj04"]
 [ext_resource type="Texture2D" uid="uid://ci80ns4folm70" path="res://Acets/WhatsApp_Image_2026-02-28_at_16.21.14-removebg-preview (2).png" id="7_5egv6"]
 [ext_resource type="Script" uid="uid://clxyjnx6rn3l" path="res://Code/v_slider.gd" id="7_yhxw7"]
@@ -264,6 +264,10 @@ script = ExtResource("1_5egv6")
 
 [node name="bg" type="CanvasLayer" parent="." unique_id=1344039827]
 
+[node name="Main" type="Container" parent="bg" unique_id=1117041661]
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="ColorRect" type="ColorRect" parent="bg" unique_id=51228275]
 material = SubResource("ShaderMaterial_jix8l")
 offset_right = 1155.0
@@ -288,7 +292,7 @@ offset_bottom = 353.0
 theme = ExtResource("2_opfnp")
 text = "Play"
 script = ExtResource("3_cp0ys")
-playascene = ExtResource("5_5egv6")
+playascene = ExtResource("4_yhxw7")
 
 [node name="Exit" type="Button" parent="main" unique_id=2052819403]
 offset_left = 83.0
