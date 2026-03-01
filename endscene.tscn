@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://cjtwg7fgolf6y"]
+
+[ext_resource type="Theme" uid="uid://c2ixy34eh3ihw" path="res://buttontheme.tres" id="1_2sl72"]
+[ext_resource type="Script" uid="uid://c7j6d23b7aj2b" path="res://endscene.gd" id="1_rl6ps"]
+[ext_resource type="Shader" uid="uid://cb5qqpbgjmup8" path="res://ocean.gdshader" id="2_bdik3"]
+[ext_resource type="Script" uid="uid://d3e488b77s1ut" path="res://label_2.gd" id="3_wkqf8"]
+[ext_resource type="Script" uid="uid://bljkmy5dqvsbd" path="res://totaldeathss.gd" id="4_iyj2h"]
+[ext_resource type="Script" uid="uid://c3p1mggy1it3y" path="res://score.gd" id="4_wkqf8"]
+[ext_resource type="Script" uid="uid://bba36x5x2hyo6" path="res://baktomenu.gd" id="6_vrlff"]
+[ext_resource type="PackedScene" uid="uid://dk124s7tqff3j" path="res://Scenes/main_menu.tscn" id="7_mb1ob"]
+
+[sub_resource type="Shader" id="Shader_rl6ps"]
+code = "shader_type canvas_item;
+
+uniform float cell_size = 32.0;
+uniform vec2 direction = vec2(1.0, 0.0);
+uniform float speed = 40.0;
+uniform float color_speed = 0.3;
+
+// --- Outline / Glow controls ---
+uniform vec4 outline_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float outline_width = 2.0;   // in pixels
+uniform float glow_radius = 6.0;     // how far the glow spreads
+uniform float glow_strength = 1.5;   // brightness multiplier
+uniform bool enable_glow = true;
+
+// HSV → RGB
+vec3 hsv2rgb(vec3 c) {
+    vec4 K = vec4(1.0, 2.0/3.0, 1.0/3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+}
+
+// Returns the max alpha found in a radius around UV
+float sample_alpha_radius(sampler2D tex, vec2 uv, float radius) {
+    vec2 texel_size = 1.0 / vec2(textureSize(tex, 0)); // ← define once here
+    float max_a = 0.0;
+    for (float x = -radius; x <= radius; x += 1.0) {
+        for (float y = -radius; y <= radius; y += 1.0) {
+            if (length(vec2(x, y)) <= radius) {
+                vec2 offset_uv = uv + vec2(x, y) * texel_size;
+                max_a = max(max_a, texture(tex, offset_uv).a);
+            }
+        }
+    }
+    return max_a;
+}
+
+void fragment() {
+    vec4 tex = texture(TEXTURE, UV);
+
+    // --- Glow (soft falloff around the shape) ---
+    float glow_alpha = 0.0;
+    if (enable_glow) {
+        float near_alpha = sample_alpha_radius(TEXTURE, UV, glow_radius);
+        // Smooth falloff: closer to shape = stronger glow
+        glow_alpha = near_alpha * smoothstep(0.0, glow_radius, glow_radius - length(vec2(0.0)));
+        // Simpler approach: just use the sampled alpha as glow intensity
+        glow_alpha = (1.0 - tex.a) * near_alpha;
+    }
+
+    // --- Outline (1 pixel thick ring just outside the shape) ---
+    float outline_alpha = 0.0;
+    if (tex.a < 0.01) {
+        float neighbor_alpha = sample_alpha_radius(TEXTURE, UV, outline_width);
+        outline_alpha = step(0.01, neighbor_alpha); // 1.0 if near the shape
+    }
+
+    // --- Early discard if nothing to draw ---
+    if (tex.a < 0.01 && outline_alpha < 0.01 && glow_alpha < 0.01) discard;
+
+    // --- Checkerboard color logic (same as before) ---
+    vec2 pixel_pos = SCREEN_UV / SCREEN_PIXEL_SIZE;
+    vec2 move_offset = direction * TIME * speed;
+    pixel_pos += move_offset;
+    vec2 cell_id = floor(pixel_pos / cell_size);
+
+    float hue = mix(0.55, 0.65, fract((cell_id.x + cell_id.y) * 0.15 + TIME * color_speed));
+    vec3 rainbow = hsv2rgb(vec3(hue, 0.8, 0.6));
+
+    // --- Composite layers ---
+    if (tex.a >= 0.01) {
+        // Normal interior pixel — apply glow brightness boost too
+        vec3 final_color = rainbow * (enable_glow ? glow_strength : 1.0);
+        COLOR = vec4(final_color, 1.0);
+    } else if (outline_alpha > 0.01) {
+        // Outline ring
+        COLOR = outline_color;
+    } else {
+        // Glow halo outside the shape
+        COLOR = vec4(outline_color.rgb, glow_alpha * outline_color.a);
+    }
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wkqf8"]
+shader = SubResource("Shader_rl6ps")
+shader_parameter/cell_size = 32.0
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed = 40.0
+shader_parameter/color_speed = 0.3
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 2.0
+shader_parameter/glow_radius = 6.0
+shader_parameter/glow_strength = 1.5
+shader_parameter/enable_glow = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vrlff"]
+shader = ExtResource("2_bdik3")
+shader_parameter/wave_speed = 1.0
+shader_parameter/wave_strength = 0.02
+shader_parameter/wave_frequency = 8.0
+shader_parameter/shallow_color = Color(0, 0.5, 0.8, 1)
+shader_parameter/deep_color = Color(0, 0.1, 0.4, 1)
+shader_parameter/foam_threshold = 0.7
+shader_parameter/foam_color = Color(0.9, 0.95, 1, 1)
+shader_parameter/overlay_color = Color(0, 0, 0, 1)
+shader_parameter/overlay_strength = 0.390000018525
+
+[node name="Control" type="Control" unique_id=340492659]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rl6ps")
+
+[node name="time" type="Label" parent="." unique_id=1461338841]
+layout_mode = 0
+offset_left = 447.0
+offset_top = 218.0
+offset_right = 716.0
+offset_bottom = 324.0
+theme = ExtResource("1_2sl72")
+text = "00:00.000"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_wkqf8")
+
+[node name="totaldeathss" type="Label" parent="." unique_id=1669476465]
+layout_mode = 0
+offset_left = 362.0
+offset_top = 369.0
+offset_right = 792.0
+offset_bottom = 475.0
+theme = ExtResource("1_2sl72")
+text = "Total Deaths: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_iyj2h")
+
+[node name="score" type="Label" parent="." unique_id=841242505]
+layout_mode = 0
+offset_left = 343.0
+offset_top = 293.0
+offset_right = 837.0
+offset_bottom = 399.0
+theme = ExtResource("1_2sl72")
+text = "Score: 999999999"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_wkqf8")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=426786148]
+material = SubResource("ShaderMaterial_wkqf8")
+layout_mode = 0
+offset_left = 205.0
+offset_top = 37.0
+offset_right = 954.0
+offset_bottom = 254.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=360501831]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(749, 217)
+render_target_update_mode = 4
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport" unique_id=619603429]
+offset_left = 55.999996
+offset_top = 11.0
+offset_right = 649.0
+offset_bottom = 166.0
+theme_override_font_sizes/font_size = 128
+text = "VICTORY!!!!"
+
+[node name="bg" type="CanvasLayer" parent="SubViewportContainer" unique_id=1304928296]
+layer = -30
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/bg" unique_id=1721777873]
+z_index = -51
+material = SubResource("ShaderMaterial_vrlff")
+offset_right = 1155.0
+offset_bottom = 656.0
+
+[node name="baktomenu" type="Button" parent="." unique_id=260478567]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 463.0
+offset_right = 1160.0
+offset_bottom = 577.0
+theme = ExtResource("1_2sl72")
+text = "Back to Menu"
+script = ExtResource("6_vrlff")
+startscene = ExtResource("7_mb1ob")
+
+[connection signal="pressed" from="baktomenu" to="." method="_on_baktomenu_pressed"]
+[connection signal="pressed" from="baktomenu" to="baktomenu" method="_on_pressed"]
