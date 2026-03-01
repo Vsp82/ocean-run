@@ -144,10 +144,10 @@ func _on_attack_body_entered(body) -> void:
 	if body.is_in_group("Enemy"):
 		body.Health -= 1
 		print(body.Health)
+		Global.add_score(100)
 
 func _on_hit_cooldown_timeout() -> void:
 	hit = true
-
 
 func _on_instakill_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):

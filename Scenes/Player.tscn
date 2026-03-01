@@ -139,7 +139,7 @@ anim_offset_max = 1.0
 turbulence_noise_speed_random = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gntrk"]
-size = Vector2(19, 8)
+size = Vector2(22, 16)
 
 [sub_resource type="Animation" id="Animation_dewec"]
 resource_name = "Attack"
@@ -159,7 +159,7 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D2:visible")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.001, 1),
@@ -195,7 +195,7 @@ tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/path = NodePath("Sprite2D2:position")
-tracks/4/interp = 1
+tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0.07, 0.5, 0.9),
@@ -207,7 +207,7 @@ tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/path = NodePath("Sprite2D2:rotation")
-tracks/5/interp = 1
+tracks/5/interp = 2
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0.07, 0.5, 0.9),
@@ -219,7 +219,7 @@ tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/path = NodePath("Sprite2D2:scale")
-tracks/6/interp = 1
+tracks/6/interp = 2
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0.07, 0.5, 0.9),
@@ -231,7 +231,7 @@ tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/path = NodePath("Sprite2D2:flip_h")
-tracks/7/interp = 1
+tracks/7/interp = 2
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
@@ -492,7 +492,7 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=85823970 groups=["Player"]]
-position = Vector2(6.5, 0)
+position = Vector2(8, 0)
 shape = SubResource("RectangleShape2D_gntrk")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1055349734]
@@ -503,7 +503,7 @@ texture = ExtResource("4_dewec")
 
 [node name="Attack2" type="AnimationPlayer" parent="." unique_id=909476743]
 libraries/ = SubResource("AnimationLibrary_5ixxa")
-speed_scale = 8.0
+speed_scale = 5.0
 
 [node name="spawnreset" type="Timer" parent="." unique_id=1483102353]
 wait_time = 2.0

@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 
 # -1 for negative pnts
 func add_score(pnts: int) -> void:
-	realscore += pnts
+	Global.add_score(pnts)
 
 func _on_area_2d_body_entered(body) -> void:
 	if body.is_in_group("Player"):

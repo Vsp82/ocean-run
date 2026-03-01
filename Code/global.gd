@@ -6,6 +6,9 @@ var config = ConfigFile.new()
 var master_volume: float = 0.0
 var totaldeaths: int = 0
 var Health := 8
+var run_time: float = 0.0
+var timer_running: bool = false
+var score := 0
 
 func _ready():
 	config.load(SAVE_PATH)
@@ -13,6 +16,11 @@ func _ready():
 	master_volume = config.get_value("settings", "volume", 0.0)
 	totaldeaths = config.get_value("settings", "deaths", 0)
 	AudioServer.set_bus_volume_db(0, master_volume)
+
+var realscore: int = 0
+
+func add_score(pnts: int) -> void:
+	realscore += pnts
 
 func save_rumble(value: bool):
 	rumble_enabled = value

@@ -6,12 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://da8cqaqdiocaf" path="res://Acets/health_back.png" id="3_tjp4o"]
 [ext_resource type="Texture2D" uid="uid://6w40ogj4oly" path="res://Acets/image-removebg-preview (7).png" id="4_ii6su"]
 [ext_resource type="PackedScene" uid="uid://dq80h78q5t2n6" path="res://Scenes/Instakill.tscn" id="6_n3yln"]
-[ext_resource type="Script" path="res://Scenes/health.gd" id="6_o5f8d"]
-[ext_resource type="Script" path="res://Scenes/timer.gd" id="7_oiscc"]
+[ext_resource type="Script" uid="uid://u7xeintr8ojd" path="res://Scenes/health.gd" id="6_o5f8d"]
+[ext_resource type="Script" uid="uid://bwyvx6s22k2xo" path="res://Scenes/timer.gd" id="7_oiscc"]
 [ext_resource type="PackedScene" uid="uid://dpq1d12mj6kr" path="res://Scenes/spike.tscn" id="7_yv417"]
+[ext_resource type="Script" uid="uid://cvkdui4tqb7a6" path="res://Scenes/score.gd" id="8_oiscc"]
 [ext_resource type="PackedScene" uid="uid://cknosgd186yyl" path="res://Scenes/damage.tscn" id="8_peten"]
 [ext_resource type="PackedScene" uid="uid://ckckammpbk7wo" path="res://Scenes/Squid.tscn" id="9_peten"]
-[ext_resource type="Script" uid="uid://t2g7oodrr546" path="res://Scenes/mini_boss.gd" id="10_dcqd4"]
+[ext_resource type="Script" path="res://Scenes/mini_boss.gd" id="10_dcqd4"]
 [ext_resource type="Shader" uid="uid://ckgryjxyj7004" path="res://Scenes/Main.gdshader" id="11_rrwio"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rrwio"]
@@ -83,7 +84,7 @@ tile_size = Vector2i(320, 320)
 physics_layer_0/collision_layer = 1
 sources/4 = SubResource("TileSetAtlasSource_tan2m")
 
-[sub_resource type="Shader" id="Shader_16hvj"]
+[sub_resource type="Shader" id="Shader_vijiy"]
 code = "shader_type canvas_item;
 
 uniform float cell_size = 32.0;
@@ -167,7 +168,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o5f8d"]
-shader = SubResource("Shader_16hvj")
+shader = SubResource("Shader_vijiy")
 shader_parameter/cell_size = 32.0
 shader_parameter/direction = Vector2(1, 0)
 shader_parameter/speed = 40.0
@@ -180,20 +181,20 @@ shader_parameter/enable_glow = true
 
 [sub_resource type="Theme" id="Theme_oiscc"]
 
-[sub_resource type="SystemFont" id="SystemFont_vijiy"]
+[sub_resource type="SystemFont" id="SystemFont_0d6mn"]
 font_names = PackedStringArray("Nimbus Sans Narrow")
 subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_0d6mn"]
-font = SubResource("SystemFont_vijiy")
+font = SubResource("SystemFont_0d6mn")
 font_size = 77
 
-[sub_resource type="SystemFont" id="SystemFont_lbt7p"]
+[sub_resource type="SystemFont" id="SystemFont_tan2m"]
 font_names = PackedStringArray("RIT Meera New")
 subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_o5f8d"]
-font = SubResource("SystemFont_lbt7p")
+font = SubResource("SystemFont_tan2m")
 font_size = 77
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
@@ -228,10 +229,10 @@ shader_parameter/fog_density = 0.35
 shader_parameter/parallax_scale = 0.08
 shader_parameter/scroll = Vector2(0, 0)
 
-[sub_resource type="Gradient" id="Gradient_jw32o"]
+[sub_resource type="Gradient" id="Gradient_vshpx"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_o5f8d"]
-gradient = SubResource("Gradient_jw32o")
+gradient = SubResource("Gradient_vshpx")
 
 [node name="Better_main" type="Node2D" unique_id=440441375]
 script = ExtResource("1_ii6su")
@@ -317,6 +318,7 @@ theme_override_font_sizes/font_size = 77
 text = "000000000"
 label_settings = SubResource("LabelSettings_o5f8d")
 horizontal_alignment = 2
+script = ExtResource("8_oiscc")
 
 [node name="Instakill" parent="." unique_id=417424381 instance=ExtResource("6_n3yln")]
 position = Vector2(-38.66739, 134.80283)

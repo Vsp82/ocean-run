@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://pjvrrjmwwy7v"]
+[gd_scene format=3 uid="uid://dx5gnpuucgrtj"]
 
 [ext_resource type="Texture2D" uid="uid://cxj6nxxtavwo6" path="res://Acets/spritesheet.png" id="1_41lpl"]
 [ext_resource type="Script" uid="uid://fu0o3shpod8d" path="res://Scenes/player_swim.gd" id="1_t7jic"]
@@ -71,8 +71,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljphq"]
 size = Vector2(16, 7)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hm7aj"]
-size = Vector2(19, 8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7jic"]
+size = Vector2(22, 16)
 
 [sub_resource type="Animation" id="Animation_dewec"]
 resource_name = "Attack"
@@ -92,7 +92,7 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D2:visible")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.001, 1),
@@ -128,7 +128,7 @@ tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/path = NodePath("Sprite2D2:position")
-tracks/4/interp = 1
+tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0.07, 0.5, 0.9),
@@ -140,7 +140,7 @@ tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/path = NodePath("Sprite2D2:rotation")
-tracks/5/interp = 1
+tracks/5/interp = 2
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0.07, 0.5, 0.9),
@@ -152,7 +152,7 @@ tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/path = NodePath("Sprite2D2:scale")
-tracks/6/interp = 1
+tracks/6/interp = 2
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0.07, 0.5, 0.9),
@@ -164,7 +164,7 @@ tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/path = NodePath("Sprite2D2:flip_h")
-tracks/7/interp = 1
+tracks/7/interp = 2
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
@@ -371,7 +371,7 @@ tracks/8/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_thlhe"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hm7aj"]
 _data = {
 &"Attack": SubResource("Animation_dewec"),
 &"Attack left": SubResource("Animation_52ee3"),
@@ -412,26 +412,26 @@ frame_progress = 0.7034259
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_ljphq")
 
-[node name="Attack" type="Area2D" parent="." unique_id=1944978859 groups=["Player"]]
+[node name="Attack" type="Area2D" parent="." unique_id=1746502124 groups=["Player"]]
 visible = false
 collision_layer = 24
 collision_mask = 24
 monitoring = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=1069803891 groups=["Player"]]
-position = Vector2(6.5, 0)
-shape = SubResource("RectangleShape2D_hm7aj")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=1120750524 groups=["Player"]]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_t7jic")
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1838839949 groups=["Player"]]
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=571347671]
 visible = false
 position = Vector2(5.0000005, -2.9802322e-08)
 scale = Vector2(0.012024049, 0.015999999)
 texture = ExtResource("4_t7jic")
 
-[node name="Attack2" type="AnimationPlayer" parent="." unique_id=127864084 groups=["Player"]]
-libraries/ = SubResource("AnimationLibrary_thlhe")
-speed_scale = 8.0
+[node name="Attack2" type="AnimationPlayer" parent="." unique_id=1016470940]
+libraries/ = SubResource("AnimationLibrary_hm7aj")
+speed_scale = 5.0
 
 [connection signal="timeout" from="No_damage_time" to="." method="_on_no_damage_time_timeout"]
 [connection signal="timeout" from="Hit_Cooldown" to="." method="_on_hit_cooldown_timeout"]
