@@ -139,7 +139,6 @@ func take_damage() -> void:
 	Health -= 1
 	$AnimationPlayer.play("playeflash")
 	No_damage_time.start()
-	print(Health)
 	if Health <= 0: # dead
 		Global.add_death()
 		get_tree().reload_current_scene()
@@ -162,7 +161,6 @@ func _ready() -> void:
 	$AnimatedSprite2D.modulate.a = 1.0
 
 func Attack():
-	print("attack")
 	$Attack2.play("Attack")
 
 func wait(seconds: float):
@@ -171,7 +169,6 @@ func wait(seconds: float):
 
 func _on_attack_body_entered(body) -> void:
 	if body.is_in_group("Enemy"):
-		print("Enemy hit")
 		body.Health -= 1
 
 func _on_hit_cooldown_timeout() -> void:
