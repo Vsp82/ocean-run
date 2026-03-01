@@ -100,6 +100,7 @@ func _physics_process(delta: float) -> void:
 	var lerp_speed := ZOOM_OUT_SPEED if speed_factor > 0.01 else ZOOM_IN_SPEED
 	$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, lerp_speed * delta)
 	if Input.is_action_just_pressed("Jump") and (!CoyoteTime.is_stopped() or is_on_floor()):
+		get_parent().add_score(10)
 		velocity.y = WATER_JUMP_VELOCITY if water else JUMP_VELOCITY
 		CoyoteTime.stop()
 		Coyote_time_active = true
