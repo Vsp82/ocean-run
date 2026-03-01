@@ -212,11 +212,7 @@ position = Vector2(-8.940697e-07, 7.1525574e-07)
 scale = Vector2(0.06451613, 0.063745014)
 sprite_frames = SubResource("SpriteFrames_megsn")
 animation = &"Walk"
-
-frame_progress = 0.087702125
-
 frame_progress = 0.19473504
-
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1277824255]
 shape = SubResource("CapsuleShape2D_kyqiw")
@@ -261,14 +257,6 @@ texture = ExtResource("4_dewec")
 [node name="Attack2" type="AnimationPlayer" parent="." unique_id=909476743]
 libraries/ = SubResource("AnimationLibrary_5ixxa")
 speed_scale = 8.0
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1366314714]
-zoom = Vector2(6, 6)
-limit_left = -80
-limit_top = -200
-limit_bottom = 112
-limit_smoothed = true
-position_smoothing_enabled = true
 
 [node name="spawnreset" type="Timer" parent="." unique_id=1483102353]
 wait_time = 2.0
