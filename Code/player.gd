@@ -120,7 +120,6 @@ func _on_landed() -> void:
 	get_parent().add_child(explosion)
 
 func take_fall_damage() -> void:
-	set_physics_process(false)
 	var explode = explode_up_scene.instantiate()
 	explode.global_position = global_position
 	get_parent().add_child(explode)
@@ -128,7 +127,7 @@ func take_fall_damage() -> void:
 	timer.start()
 	await timer.timeout
 	Global.add_death()
-	get_tree().reload_current_scene()
+	get_tree().call_deferred("reload_current_scene")
 
 func take_damage() -> void:
 	if No_damage_time_active:
@@ -142,7 +141,7 @@ func take_damage() -> void:
 	print(Health)
 	if Health <= 0: # dead
 		Global.add_death()
-		get_tree().reload_current_scene()
+		get_tree().call_deferred("reload_current_scene")
 
 func _on_air_body_entered(body: CharacterBody2D) -> void:
 	if body.is_in_group("Player"):

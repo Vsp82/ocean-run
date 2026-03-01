@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://btnlfrddo4pwo"]
 
+[ext_resource type="Script" uid="uid://cgvwn4j5mgm8d" path="res://explode_up_effect.gd" id="1_kldrn"]
+
 [sub_resource type="Curve" id="Curve_cqb37"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 0.8089888), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
@@ -31,11 +33,11 @@ alpha_curve = SubResource("CurveTexture_dewec")
 
 [node name="ExplodeUpEffect" type="Node2D" unique_id=2092162414]
 z_index = 55
+script = ExtResource("1_kldrn")
 
 [node name="explode" type="GPUParticles2D" parent="." unique_id=874954278]
 z_index = 50
-z_as_relative = false
-position = Vector2(0, -8)
+position = Vector2(0, -4)
 emitting = false
 amount = 16
 one_shot = true
