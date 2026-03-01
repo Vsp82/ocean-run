@@ -10,9 +10,6 @@ extends CharacterBody2D
 @onready var text22 = preload(text2)
 @onready var cHealt = $"../CanvasLayer/Health"
 
-
-
-
 var No_damage_time_active: bool = false
 var Coyote_time_active: bool = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -177,6 +174,10 @@ func _on_attack_body_entered(body) -> void:
 		print("Enemy hit")
 		body.Health -= 1
 
-
 func _on_hit_cooldown_timeout() -> void:
 	hit = true
+
+
+func _on_instakill_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		take_fall_damage()
