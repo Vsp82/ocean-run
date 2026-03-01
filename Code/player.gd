@@ -74,6 +74,10 @@ func _physics_process(delta: float) -> void:
 			gravity_modifier = 0.45   # also resist rising
 		else:
 			gravity_modifier = 1.0
+	
+	if Input.is_action_pressed("Down"):
+		gravity_modifier = 1.5
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
@@ -128,6 +132,11 @@ func _physics_process(delta: float) -> void:
 	# is squatting?
 	if Input.is_action_pressed("Down"):
 		$AnimatedSprite2D.play("squat")
+		$CollisionShape2D.disabled = true
+		$squatcolls.disabled = false
+	else:
+		$CollisionShape2D.disabled = false
+		$squatcolls.disabled = true
 
 	move_and_slide()
 	
