@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var text11 = preload(text1)
 @onready var text22 = preload(text2)
 @onready var cHealt = $"../CanvasLayer/Health"
+@onready var Spawnpoint = $"../Spawnpoint"
 
 var No_damage_time_active: bool = false
 var Coyote_time_active: bool = false
@@ -149,7 +150,11 @@ func take_fall_damage() -> void:
 	timer.start()
 	await timer.timeout
 	Global.add_death()
-	get_tree().call_deferred("reload_current_scene")
+	goto_spawn()
+
+func goto_spawn() -> void:
+	Health = 8
+	global_position = Spawnpoint.global_position
 
 func take_damage() -> void:
 	if No_damage_time_active:
@@ -162,7 +167,7 @@ func take_damage() -> void:
 	No_damage_time.start()
 	if Health <= 0: # dead
 		Global.add_death()
-		get_tree().call_deferred("reload_current_scene")
+		goto_spawn()
 
 func _on_air_body_entered(body: CharacterBody2D) -> void:
 	if body.is_in_group("Player"):
@@ -186,7 +191,6 @@ func Attack():
 
 func wait(seconds: float):
 	await get_tree().create_timer(seconds).timeout
-
 
 func _on_attack_body_entered(body) -> void:
 	if body.is_in_group("Enemy"):
