@@ -4,6 +4,13 @@
 [ext_resource type="Script" uid="uid://dasfqy3l76jvs" path="res://Scenes/boss.gd" id="1_wwfse"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wwfse"]
+radius = 11.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwfse"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cxrok"]
+radius = 14.0
+height = 36.0
 
 [node name="Boss" type="CharacterBody2D" unique_id=1732988060 groups=["Enemy"]]
 script = ExtResource("1_wwfse")
@@ -17,3 +24,34 @@ shape = SubResource("CapsuleShape2D_wwfse")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=546707570]
 simplify_path = true
+
+[node name="Timer" type="Timer" parent="." unique_id=1911370907]
+wait_time = 0.1
+autostart = true
+
+[node name="Vision" type="Area2D" parent="." unique_id=14966237]
+visible = false
+scale = Vector2(5, 5)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision" unique_id=1749369409]
+scale = Vector2(10, 6.668)
+shape = SubResource("RectangleShape2D_wwfse")
+debug_color = Color(0.52268845, 0.4351017, 0.9580557, 0.41960785)
+
+[node name="Timer2" type="Timer" parent="." unique_id=1496229581]
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1359142754 groups=["Enemy"]]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=194743672 groups=["Enemy"]]
+shape = SubResource("CapsuleShape2D_cxrok")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="Vision" to="." method="_on_vision_body_exited"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
