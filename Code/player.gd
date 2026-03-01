@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var text11 = preload(text1)
 @onready var text22 = preload(text2)
 @onready var cHealt = $"../CanvasLayer/Health"
+@onready var Spawnpoint = $"../Spawnpoint"
 
 var No_damage_time_active: bool = false
 var Coyote_time_active: bool = false
@@ -41,8 +42,8 @@ var airtime := 0.0
 const ZOOM_DEFAULT    := Vector2(6.0, 6.0)
 const ZOOM_MAX_OUT    := Vector2(4.0, 4.0)   # how far it zooms out at full speed
 const ZOOM_SPEED_REF  := 200.0               # speed at which max zoom is reached
-const ZOOM_OUT_SPEED  := 6.0                 # how fast it zooms out
-const ZOOM_IN_SPEED   := 2.0                 # how slowly it recovers (feels weightier)
+const ZOOM_OUT_SPEED  := 3.0                 # how fast it zooms out
+const ZOOM_IN_SPEED   := 1.0                 # how slowly it recovers (feels weightier)
 
 
 func _process(_delta: float) -> void:
@@ -93,12 +94,12 @@ func _physics_process(delta: float) -> void:
 			CoyoteTime.stop()
 	# In _physics_process, replace the zoom block with this:
 	var speed        := velocity.length()
-#	var speed_factor: float = clamp(speed / ZOOM_SPEED_REF, 0.0, 1.0)
-#	var target_zoom  := ZOOM_DEFAULT.lerp(ZOOM_MAX_OUT, speed_factor)
+	var speed_factor: float = clamp(speed / ZOOM_SPEED_REF, 0.0, 1.0)
+	var target_zoom  := ZOOM_DEFAULT.lerp(ZOOM_MAX_OUT, speed_factor)
 
 	# Asymmetric lerp: fast zoom-out, slow zoom-in
-	#var lerp_speed := ZOOM_OUT_SPEED if speed_factor > 0.01 else ZOOM_IN_SPEED
-	#$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, lerp_speed * delta)
+	var lerp_speed := ZOOM_OUT_SPEED if speed_factor > 0.01 else ZOOM_IN_SPEED
+	$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, lerp_speed * delta)
 	if Input.is_action_just_pressed("Jump") and (!CoyoteTime.is_stopped() or is_on_floor()):
 		velocity.y = WATER_JUMP_VELOCITY if water else JUMP_VELOCITY
 		CoyoteTime.stop()
@@ -150,7 +151,11 @@ func take_fall_damage() -> void:
 	timer.start()
 	await timer.timeout
 	Global.add_death()
-	get_tree().call_deferred("reload_current_scene")
+	goto_spawn()
+
+func goto_spawn() -> void:
+	Health = 8
+	global_position = Spawnpoint.global_position
 
 func take_damage() -> void:
 	if No_damage_time_active:
@@ -163,7 +168,7 @@ func take_damage() -> void:
 	No_damage_time.start()
 	if Health <= 0: # dead
 		Global.add_death()
-		get_tree().call_deferred("reload_current_scene")
+		goto_spawn()
 
 func _on_air_body_entered(body: CharacterBody2D) -> void:
 	if body.is_in_group("Player"):
@@ -190,7 +195,6 @@ func Attack():
 
 func wait(seconds: float):
 	await get_tree().create_timer(seconds).timeout
-
 
 func _on_attack_body_entered(body) -> void:
 	if body.is_in_group("Enemy"):
