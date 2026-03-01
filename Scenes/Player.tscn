@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3omqfnl4qasx" path="res://Code/player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://bl106bqd3h66o" path="res://image-removebg-preview (2).png" id="2_dewec"]
+[ext_resource type="Texture2D" uid="uid://brpyejknynfuh" path="res://Acets/image-removebg-preview (5) (1).png" id="3_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://cxj6nxxtavwo6" path="res://Acets/spritesheet.png" id="3_dewec"]
 [ext_resource type="Texture2D" uid="uid://bhtwm17g68hla" path="res://Acets/image-removebg-preview (13).png" id="4_dewec"]
 
@@ -58,6 +59,14 @@ animations = [{
 "loop": true,
 "name": &"Walk",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5ixxa")
+}],
+"loop": true,
+"name": &"squat",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kyqiw"]
@@ -437,7 +446,7 @@ script = ExtResource("1_kyqiw")
 position = Vector2(-8.940697e-07, 7.1525574e-07)
 scale = Vector2(0.06451613, 0.063745014)
 sprite_frames = SubResource("SpriteFrames_megsn")
-animation = &"Idle"
+animation = &"squat"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1277824255]
 shape = SubResource("CapsuleShape2D_kyqiw")

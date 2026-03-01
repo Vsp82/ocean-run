@@ -63,9 +63,7 @@ func _physics_process(delta: float) -> void:
 	var current_speed    := WATER_SPEED    if water else SPEED
 	var current_friction := WATER_FRICTION if water else FRICTION
 	if velocity.y > 0:
-
 		gravity_modifier = 0.2
-
 		if water:
 			gravity_modifier = 0.25   # slow the fall
 		else:
@@ -126,7 +124,10 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, current_friction * delta)
 		$AnimatedSprite2D.play("Idle")
 		$GPUParticles2D.emitting = false
-		
+	
+	# is squatting?
+	if Input.is_action_pressed("Down"):
+		$AnimatedSprite2D.play("squat")
 
 	move_and_slide()
 	
