@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-@export var Health := 8
 @onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
 
@@ -47,7 +46,7 @@ const ZOOM_IN_SPEED   := 1.0                 # how slowly it recovers (feels wei
 
 
 func _process(_delta: float) -> void:
-	cHealt.value = Health
+	cHealt.value = Global.Health
 	if text == 0:
 		$GPUParticles2D.texture = text11
 		text += 1
@@ -154,7 +153,7 @@ func take_fall_damage() -> void:
 	goto_spawn()
 
 func goto_spawn() -> void:
-	Health = 8
+	Global.Health = 8
 	global_position = Spawnpoint.global_position
 
 func take_damage() -> void:
@@ -163,10 +162,10 @@ func take_damage() -> void:
 	if Global.rumble_enabled:
 		Input.start_joy_vibration(0, 0.8, 0.3, 0.4)
 	No_damage_time_active = true
-	Health -= 2
+	Global.Health -= 2
 	$AnimationPlayer.play("asdasd")
 	No_damage_time.start()
-	if Health <= 0: # dead
+	if Global.Health <= 0: # dead
 		Global.add_death()
 		goto_spawn()
 

@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-@export var Health := 8
 @onready var No_damage_time: Timer = $No_damage_time
 
 @onready var explode_scene = preload(explode_scenes)
@@ -43,7 +42,7 @@ const ZOOM_IN_SPEED   := 2.0                 # how slowly it recovers (feels wei
 
 func _process(_delta: float) -> void:
 	
-	cHealt.value = Health
+	cHealt.value = Global.Health
 	if text == 0:
 		$GPUParticles2D.texture = text11
 		text += 1
@@ -97,10 +96,10 @@ func take_damage() -> void:
 	if Global.rumble_enabled:
 		Input.start_joy_vibration(0, 0.8, 0.3, 0.4)
 	No_damage_time_active = true
-	Health -= 2
+	Global.Health -= 2
 	$AnimationPlayer.play("playeflash")
 	No_damage_time.start()
-	if Health <= 0: # dead
+	if Global.Health <= 0: # dead
 		Global.add_death()
 		get_tree().call_deferred("reload_current_scene")
 
