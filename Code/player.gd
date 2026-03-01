@@ -93,10 +93,10 @@ func _physics_process(delta: float) -> void:
 	# In _physics_process, replace the zoom block with this:
 	var speed        := velocity.length()
 	var speed_factor: float = clamp(speed / ZOOM_SPEED_REF, 0.0, 1.0)
-	var target_zoom  := ZOOM_DEFAULT.lerp(ZOOM_MAX_OUT, speed_factor)
+#	var target_zoom  := ZOOM_DEFAULT.lerp(ZOOM_MAX_OUT, speed_factor)
 
 	# Asymmetric lerp: fast zoom-out, slow zoom-in
-	var lerp_speed := ZOOM_OUT_SPEED if speed_factor > 0.01 else ZOOM_IN_SPEED
+	#var lerp_speed := ZOOM_OUT_SPEED if speed_factor > 0.01 else ZOOM_IN_SPEED
 	#$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, lerp_speed * delta)
 	if Input.is_action_just_pressed("Jump") and (!CoyoteTime.is_stopped() or is_on_floor()):
 		velocity.y = WATER_JUMP_VELOCITY if water else JUMP_VELOCITY

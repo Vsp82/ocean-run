@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const  speed = 350
+
 const ACCEL = 2000
 
 @export var Health = 1
@@ -11,6 +11,7 @@ var moove := 5
 var time := true
 var vision := false
 var immune = false
+var  speed = 350
 
 func _process(_delta: float) -> void:
 	if Health <= 0:
@@ -20,11 +21,12 @@ func _process(_delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	var direction = to_local(nav_agent.get_next_path_position()).normalized()
 	if vision and time:
+		$AnimatedSprite2D.play("base")
 		immune = true
 		if direction.x < 0:
-			$Sprite2D.flip_h = true
+			$AnimatedSprite2D.flip_h = true
 		elif direction.x > 0:
-			$Sprite2D.flip_h = false
+			$AnimatedSprite2D.flip_h = false
 		velocity = direction * speed
 		move_and_slide()
 		moove -= 1
@@ -44,6 +46,7 @@ func _on_timer_timeout() -> void:
 func _on_vision_body_entered(body: CharacterBody2D) -> void:
 	if body.is_in_group("Player"):
 		vision = true
+		speed = 350
 
 func wait(seconds: float):
 	await get_tree().create_timer(seconds).timeout
@@ -60,3 +63,8 @@ func _on_hitbox_body_entered(body) -> void:
 		if Health <= 0:
 			$".".hide()
 			queue_free()
+
+
+func _on_vision_body_exited(body: CharacterBody2D) -> void:
+	if body.is_in_group("Player"):
+		speed = 900

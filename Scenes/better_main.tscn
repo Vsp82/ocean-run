@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dpq1d12mj6kr" path="res://Scenes/spike.tscn" id="7_yv417"]
 [ext_resource type="PackedScene" uid="uid://cknosgd186yyl" path="res://Scenes/damage.tscn" id="8_peten"]
 [ext_resource type="PackedScene" uid="uid://ckckammpbk7wo" path="res://Scenes/Squid.tscn" id="9_peten"]
+[ext_resource type="Script" uid="uid://t2g7oodrr546" path="res://Scenes/mini_boss.gd" id="10_dcqd4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n3yln"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -199,7 +200,7 @@ tile_map_data = PackedByteArray("AAD9//3/AAAGAAEAAAD9//7/AAAGAAEAAAD9////AAAGAAE
 tile_set = SubResource("TileSet_ii6su")
 
 [node name="Player" parent="." unique_id=2033505834 instance=ExtResource("2_8prnb")]
-position = Vector2(-8.271042, 97.63657)
+position = Vector2(763.9229, 103.2716)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1315471370]
 zoom = Vector2(5.5, 5.5)
@@ -385,7 +386,7 @@ player = NodePath("../../Player")
 shape = SubResource("CircleShape2D_peten")
 
 [node name="Squid4" parent="Squid" unique_id=752841985 node_paths=PackedStringArray("player") instance=ExtResource("9_peten")]
-position = Vector2(811.4403, -309.14987)
+position = Vector2(857.45264, -224.001)
 player = NodePath("../../Player")
 
 [node name="Damage" parent="Squid/Squid4" unique_id=573280659 instance=ExtResource("8_peten")]
@@ -394,7 +395,7 @@ player = NodePath("../../Player")
 shape = SubResource("CircleShape2D_peten")
 
 [node name="Squid5" parent="Squid" unique_id=1288581077 node_paths=PackedStringArray("player") instance=ExtResource("9_peten")]
-position = Vector2(811.4403, -309.14987)
+position = Vector2(857.45264, -224.001)
 player = NodePath("../../Player")
 
 [node name="Damage" parent="Squid/Squid5" unique_id=1370361146 instance=ExtResource("8_peten")]
@@ -403,7 +404,7 @@ player = NodePath("../../Player")
 shape = SubResource("CircleShape2D_peten")
 
 [node name="Squid6" parent="Squid" unique_id=1734657011 node_paths=PackedStringArray("player") instance=ExtResource("9_peten")]
-position = Vector2(811.4403, -309.14987)
+position = Vector2(857.45264, -224.001)
 player = NodePath("../../Player")
 
 [node name="Damage" parent="Squid/Squid6" unique_id=968836240 instance=ExtResource("8_peten")]
@@ -413,7 +414,10 @@ shape = SubResource("CircleShape2D_peten")
 
 [node name="Mini_boss" type="Area2D" parent="." unique_id=1501362802]
 position = Vector2(873, 72)
+script = ExtResource("10_dcqd4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mini_boss" unique_id=1142986041]
 position = Vector2(-19.958557, -2.9072037)
 shape = SubResource("RectangleShape2D_peten")
+
+[connection signal="body_entered" from="Mini_boss" to="Mini_boss" method="_on_body_entered"]

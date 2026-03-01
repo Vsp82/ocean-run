@@ -1,7 +1,29 @@
 [gd_scene format=3 uid="uid://ckckammpbk7wo"]
 
 [ext_resource type="Script" uid="uid://dwua5ppniml0k" path="res://Code/squid.gd" id="1_xs40p"]
-[ext_resource type="Texture2D" uid="uid://cxpwb6678e7qb" path="res://Acets/Screenshot_2026-02-28_165850-removebg-preview.png" id="2_fwcaj"]
+[ext_resource type="Texture2D" uid="uid://df5hud2jttks2" path="res://Acets/image-removebg-preview (3).png" id="2_xs40p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwcaj"]
+atlas = ExtResource("2_xs40p")
+region = Rect2(0, 0, 321, 321)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oh473"]
+atlas = ExtResource("2_xs40p")
+region = Rect2(321, 0, 321, 321)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_76etv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwcaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oh473")
+}],
+"loop": true,
+"name": &"base",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s4tij"]
 radius = 7.0
@@ -19,9 +41,12 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_xs40p")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=351487205 groups=["Enemy"]]
-scale = Vector2(0.032, 0.032)
-texture = ExtResource("2_fwcaj")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=97177670]
+position = Vector2(-0.9999999, 0)
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_76etv")
+animation = &"base"
+frame_progress = 0.191994
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=351667449 groups=["Enemy"]]
 shape = SubResource("CapsuleShape2D_s4tij")
@@ -53,5 +78,6 @@ debug_color = Color(1, 0, 0, 0.41960785)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="Vision" to="." method="_on_vision_body_exited"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

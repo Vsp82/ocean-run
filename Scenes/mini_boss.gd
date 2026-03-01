@@ -12,7 +12,7 @@ const squid_path = "res://Scenes/Squid.tscn"
 func _on_body_entered(body) -> void:
 	if body.is_in_group("Player"):
 		if check:
-			$"../Squid/Squid4".position = Vector2(949, 34)
-			$"../Squid/Squid5".position = Vector2(1015, 80)
-			$"../Squid/Squid6".position = Vector2(883, 83)
+			$"../Squid/Squid4".position = Vector2(763, 97)
+			$"../Squid/Squid5".position = Vector2(853, 20)
+			$"../Squid/Squid6".position = Vector2(935, 98)
 			check = false
