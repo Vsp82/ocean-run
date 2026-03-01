@@ -154,7 +154,7 @@ func take_damage() -> void:
 		Input.start_joy_vibration(0, 0.8, 0.3, 0.4)
 	No_damage_time_active = true
 	Health -= 1
-	$AnimationPlayer.play("playeflash")
+	$AnimationPlayer.play("asdasd")
 	No_damage_time.start()
 	if Health <= 0: # dead
 		Global.add_death()
