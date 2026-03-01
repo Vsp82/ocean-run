@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 func add_score(pnts: int) -> void:
 	realscore += pnts
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
+func _on_area_2d_body_entered(body) -> void:
 	if body.is_in_group("Player"):
 		get_tree().change_scene_to_file("res://Scenes/area_2.tscn")
 

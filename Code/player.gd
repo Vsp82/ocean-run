@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-@export var Health := 8
 @onready var CoyoteTime: Timer = $CoyoteTime
 @onready var No_damage_time: Timer = $No_damage_time
 
@@ -19,6 +18,7 @@ var water := true
 var was_on_floor := false
 var text := 0
 var hit := true
+var r = false
 
 const SPEED := 120.0
 const ACCEL := 1500.0
@@ -46,7 +46,7 @@ const ZOOM_IN_SPEED   := 1.0                 # how slowly it recovers (feels wei
 
 
 func _process(_delta: float) -> void:
-	cHealt.value = Health
+	cHealt.value = Global.Health
 	if text == 0:
 		$GPUParticles2D.texture = text11
 		text += 1
@@ -112,11 +112,11 @@ func _physics_process(delta: float) -> void:
 	if direction < 0:
 		$AnimatedSprite2D.flip_h = true
 		$Attack.rotation_degrees = 180
-		$Sprite2D2.position = Vector2(-11, 0)
+		r = true
 	elif direction > 0:
 		$AnimatedSprite2D.flip_h = false
 		$Attack.rotation_degrees = 0
-		$Sprite2D2.position = Vector2(11, 0)
+		r = false
 	if direction:
 		# moving
 		velocity.x = move_toward(velocity.x, direction * current_speed, ACCEL * delta)
@@ -154,7 +154,7 @@ func take_fall_damage() -> void:
 	goto_spawn()
 
 func goto_spawn() -> void:
-	Health = 8
+	Global.Health = 8
 	global_position = Spawnpoint.global_position
 
 func take_damage() -> void:
@@ -163,10 +163,10 @@ func take_damage() -> void:
 	if Global.rumble_enabled:
 		Input.start_joy_vibration(0, 0.8, 0.3, 0.4)
 	No_damage_time_active = true
-	Health -= 2
+	Global.Health -= 2
 	$AnimationPlayer.play("asdasd")
 	No_damage_time.start()
-	if Health <= 0: # dead
+	if Global.Health <= 0: # dead
 		Global.add_death()
 		goto_spawn()
 
@@ -188,7 +188,10 @@ func _ready() -> void:
 	$AnimatedSprite2D.modulate.a = 1.0
 
 func Attack():
-	$Attack2.play("Attack")
+	if r:
+		$Attack2.play("Attack left")
+	else:
+		$Attack2.play("Attack")
 
 func wait(seconds: float):
 	await get_tree().create_timer(seconds).timeout
