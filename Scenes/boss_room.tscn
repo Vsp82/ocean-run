@@ -12,6 +12,17 @@
 [ext_resource type="Script" uid="uid://bwyvx6s22k2xo" path="res://Scenes/timer.gd" id="10_kk2qi"]
 [ext_resource type="Script" uid="uid://cvkdui4tqb7a6" path="res://Scenes/score.gd" id="11_mx74l"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_bnrw0"]
+font_size = 150
+font_color = Color(0, 0.73333335, 0.07450981, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 10
+shadow_offset = Vector2(10.81, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_djbyv"]
+font_size = 77
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rrwio"]
 vertices = PackedVector2Array(160, 160, -160, 160, -160, -160, 160, -160)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -218,6 +229,47 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="Boss Room" type="Node2D" unique_id=949340693]
 script = ExtResource("1_q04ek")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=373282109]
+visible = false
+
+[node name="Health" type="TextureProgressBar" parent="CanvasLayer" unique_id=393512959]
+offset_left = -19.0
+offset_top = -191.0
+offset_right = 481.0
+offset_bottom = 308.0
+max_value = 9.0
+value = 8.0
+texture_under = ExtResource("2_l7on7")
+texture_progress = ExtResource("3_bnrw0")
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=951483316]
+visible = false
+z_index = 1
+offset_right = 1146.0
+offset_bottom = 549.0
+text = "GAME OVER
+YOU WIN"
+label_settings = SubResource("LabelSettings_bnrw0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=199948793]
+visible = false
+offset_right = 1195.0
+offset_bottom = 648.0
+color = Color(0.186216, 4.4665336e-05, 0.678515, 1)
+
+[node name="Label2" type="Label" parent="CanvasLayer" unique_id=229910610]
+visible = false
+offset_left = 440.0
+offset_top = 466.0
+offset_right = 702.0
+offset_bottom = 572.0
+text = "Deaths"
+label_settings = SubResource("LabelSettings_djbyv")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Background" type="TileMapLayer" parent="." unique_id=1485069183]
 visibility_layer = 0

@@ -9,6 +9,7 @@ var Health := 8
 var run_time: float = 0.0
 var timer_running: bool = false
 var score := 0
+var kill := false
 
 func _ready():
 	config.load(SAVE_PATH)

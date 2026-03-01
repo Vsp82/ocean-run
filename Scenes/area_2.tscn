@@ -328,6 +328,17 @@ position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_db12a")
 debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
 
+[node name="Spike9" parent="spike" unique_id=1205825779 instance=ExtResource("6_d407d")]
+position = Vector2(318.00003, 33.000004)
+rotation = -0.7853982
+
+[node name="Damage" parent="spike/Spike9" unique_id=374980250 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spike/Spike9/Damage" unique_id=1422432656]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_db12a")
+debug_color = Color(0.9209138, 0.27238092, 0.13661194, 0.41960785)
+
 [node name="Squid" type="Node" parent="." unique_id=1398379797]
 
 [node name="Squid" parent="Squid" unique_id=436895269 node_paths=PackedStringArray("player") instance=ExtResource("5_phcop")]
@@ -364,6 +375,33 @@ player = NodePath("../../Player_swim")
 [node name="Damage" parent="Squid/Squid4" unique_id=72372033 instance=ExtResource("6_7h7mv")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Squid/Squid4/Damage" unique_id=64181987]
+shape = SubResource("CircleShape2D_0oub5")
+
+[node name="Squid5" parent="Squid" unique_id=1349665461 node_paths=PackedStringArray("player") instance=ExtResource("5_phcop")]
+position = Vector2(395.07446, 76.20468)
+player = NodePath("../../Player_swim")
+
+[node name="Damage" parent="Squid/Squid5" unique_id=897940223 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Squid/Squid5/Damage" unique_id=659717012]
+shape = SubResource("CircleShape2D_0oub5")
+
+[node name="Squid6" parent="Squid" unique_id=1859867017 node_paths=PackedStringArray("player") instance=ExtResource("5_phcop")]
+position = Vector2(529.7716, 69.400406)
+player = NodePath("../../Player_swim")
+
+[node name="Damage" parent="Squid/Squid6" unique_id=31397134 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Squid/Squid6/Damage" unique_id=1041907467]
+shape = SubResource("CircleShape2D_0oub5")
+
+[node name="Squid7" parent="Squid" unique_id=1534317911 node_paths=PackedStringArray("player") instance=ExtResource("5_phcop")]
+position = Vector2(318.22043, -59.47792)
+player = NodePath("../../Player_swim")
+
+[node name="Damage" parent="Squid/Squid7" unique_id=983035062 instance=ExtResource("6_7h7mv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Squid/Squid7/Damage" unique_id=22300878]
 shape = SubResource("CircleShape2D_0oub5")
 
 [node name="Next area" type="Area2D" parent="." unique_id=1120795592]
